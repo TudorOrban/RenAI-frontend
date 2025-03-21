@@ -3,10 +3,11 @@ import { NavigationEnd, Router, RouterOutlet } from "@angular/router";
 import { SidebarComponent } from "./core/main/components/sidebar/sidebar.component";
 import { filter } from "rxjs";
 import { CommonModule } from "@angular/common";
+import { HeaderComponent } from "./core/main/components/header/header.component";
 
 @Component({
   selector: "app-root",
-  imports: [CommonModule, RouterOutlet, SidebarComponent],
+  imports: [CommonModule, RouterOutlet, SidebarComponent, HeaderComponent],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css"
 })
