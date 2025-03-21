@@ -1,6 +1,21 @@
 <div class="sidebar min-h-full p-4 border border-gray-800 shadow-md rounded-r-md">
 
-    <div class="text-2xl font-semibold">
+    <div class="py-4 text-center text-2xl font-semibold">
         RenAI
+    </div>
+
+    <div class="p-4 space-y-8">
+        <div 
+            *ngFor="let item of sidebarItems" 
+            [ngClass]="{
+                'text-white': item.value === currentItem()?.value
+            }"
+            class="flex items-center space-x-4"
+        >
+            <fa-icon [icon]="item?.icon ?? faQuestion"></fa-icon>
+            <a [routerLink]="item?.link ?? ''" class="text-lg font-semibold">
+                {{ item.label }}
+            </a>
+        </div>
     </div>
 </div>
