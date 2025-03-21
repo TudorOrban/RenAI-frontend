@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.authService.setCurrentUser({
-            id: 0, username: "Tudor" 
+            id: 1, username: "Tudor" 
         });
     }
     

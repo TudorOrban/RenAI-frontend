@@ -6,6 +6,8 @@ import { ResourcesComponent } from './core/main/components/resources/resources.c
 import { OrganizationComponent } from './dashboard/organization/components/organization/organization.component';
 import { ProjectsComponent } from './dashboard/projects/components/projects/projects.component';
 import { SettingsComponent } from './dashboard/settings/components/settings/settings.component';
+import { ProjectComponent } from './dashboard/projects/components/project/project.component';
+import { CreateProjectComponent } from './dashboard/projects/components/create-project/create-project.component';
 
 export const routes: Routes = [
     {
@@ -31,6 +33,14 @@ export const routes: Routes = [
     {
         path: "dashboard/projects",
         component: ProjectsComponent
+    },
+    {
+        path: "dashboard/projects/create-project",
+        component: CreateProjectComponent
+    },
+    {
+        path: "dashboard/projects/:projectId",
+        component: ProjectComponent
     },
     {
         path: "dashboard/settings",
