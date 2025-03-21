@@ -2,6 +2,6 @@
 export interface UserDataDto {
     id: number;
     username: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

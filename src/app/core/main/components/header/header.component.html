@@ -16,6 +16,21 @@
     </div>
 
     <div>
-        Auth
+        <div *ngIf="isLoggedIn()" class="relative">
+            <button class="standard-auth-button rounded-full" (click)="toggleUserbar()">
+                <fa-icon [icon]="faUser"></fa-icon>
+            </button>
+            <div *ngIf="isUserbarOpen()" class="absolute right-0 top-0 pt-12">
+                <app-userbar></app-userbar>
+            </div>
+        </div>
+        <div *ngIf="!isLoggedIn()" class="flex items-center space-x-4">
+            <button class="standard-auth-button rounded-xl">
+                Log In
+            </button>
+            <button class="standard-auth-button rounded-xl">
+                Sign Up
+            </button>
+        </div>
     </div>
 </div>

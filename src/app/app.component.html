@@ -1,5 +1,5 @@
 <!-- Header -->
-<div *ngIf="!isDashboardRoute">
+<div *ngIf="!isDashboardRoute()">
     <app-header></app-header>
 </div>
 
@@ -7,12 +7,12 @@
 <main class="flex overflow-hidden h-full">
     <div class="flex w-full h-full">
         <app-sidebar
-            *ngIf="isDashboardRoute"
+            *ngIf="isDashboardRoute()"
             class="fixed h-full max-w-64 bg-white shadow-md overflow-auto"
         ></app-sidebar>
         <div 
             [ngClass]="{
-                'ml-64': isDashboardRoute
+                'ml-64': isDashboardRoute()
             }"
             class="overflow-y-auto bg-white"
         >

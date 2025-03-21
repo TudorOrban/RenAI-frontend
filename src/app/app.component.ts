@@ -1,9 +1,10 @@
-import { Component } from "@angular/core";
+import { Component, OnInit, signal } from "@angular/core";
 import { NavigationEnd, Router, RouterOutlet } from "@angular/router";
 import { SidebarComponent } from "./core/main/components/sidebar/sidebar.component";
 import { filter } from "rxjs";
 import { CommonModule } from "@angular/common";
 import { HeaderComponent } from "./core/main/components/header/header.component";
+import { AuthService } from "./core/user/services/auth.service";
 
 @Component({
   selector: "app-root",
@@ -11,15 +12,24 @@ import { HeaderComponent } from "./core/main/components/header/header.component"
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css"
 })
-export class AppComponent {
-    isDashboardRoute = false;
+export class AppComponent implements OnInit {
+    isDashboardRoute = signal(false);
   
-    constructor(private router: Router) {
+    constructor(
+        private readonly authService: AuthService,
+        private readonly router: Router
+    ) {
         this.router.events
             .pipe(filter((event) => event instanceof NavigationEnd))
             .subscribe((event: NavigationEnd) => {
-                this.isDashboardRoute = event.url.startsWith("/dashboard");
+                this.isDashboardRoute.set(event.url.startsWith("/dashboard"));
             });
+    }
+
+    ngOnInit(): void {
+        this.authService.setCurrentUser({
+            id: 0, username: "Tudor" 
+        });
     }
     
 }
