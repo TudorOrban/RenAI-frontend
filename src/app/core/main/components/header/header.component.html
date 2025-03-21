@@ -1,14 +1,18 @@
-<div class="header flex items-center justify-between w-full h-20 border-b border-gray-300">
+<div class="header flex items-center justify-between w-full h-20 px-8 border-b border-gray-300">
     <div class="text-2xl font-semibold">
         RenAI
     </div>
 
     <div class="flex items-center space-x-16">
         <div *ngFor="let item of headerItems" class="text-lg font-semibold">
-            <a [href]="item?.link ?? ''">
+            <a [routerLink]="item?.link ?? ''">
                 {{ item.label }}
             </a>
         </div>
+    </div>
+
+    <div>
+        <app-app-search-bar></app-app-search-bar>
     </div>
 
     <div>

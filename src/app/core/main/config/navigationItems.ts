@@ -4,7 +4,7 @@ export const headerItems: UIItem[] = [
     {
         label: "Home",
         value: "home",
-        link: "/home"
+        link: ""
     },
     {
         label: "Product",
