@@ -1,0 +1,11 @@
+.header {
+    background: linear-gradient(160deg, var(--secondary-color), var(--tertiary-color));;
+    color: var(--secondary-text-color);
+    height: 4rem;
+}
+
+.sidebar {
+    background: linear-gradient(160deg, var(--secondary-color), var(--tertiary-color));;
+    color: var(--secondary-text-color);
+    width: 16rem;
+}
