@@ -16,16 +16,7 @@ import { CommonModule } from '@angular/common';
 export class ProjectOverviewComponent {
     @Input() project?: ProjectDataDto;
 
-    renderType = signal<SpecificationRenderType>(SpecificationRenderType.UI);
-
     constructor(
         readonly dataFormatterService: DataFormatterService
     ) {}
-
-    selectRenderType(renderType: SpecificationRenderType): void {
-        this.renderType.set(renderType);
-    }
-
-    faEdit = faEdit;
-    SpecificationRenderType = SpecificationRenderType;
 }

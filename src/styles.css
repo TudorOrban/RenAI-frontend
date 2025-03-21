@@ -3,6 +3,7 @@
 @import url("styles/buttons.css");
 @import url("styles/forms.css");
 
+@import "jsoneditor/dist/jsoneditor.css";
 @import "tailwindcss";
 
 

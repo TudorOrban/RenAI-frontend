@@ -36,7 +36,7 @@ export interface JobSpecification {
 export interface AppSpecification {
     appName: string;
     functionalSpecifications: string[];
-    appType: AppType;
+    appType?: AppType;
     backendStack?: BackendStack;
     frontendStack?: FrontendStack;
 }
@@ -94,9 +94,9 @@ export enum FrontendFramework {
 
 // Development Spec
 export interface DevelopmentSpecification {
-    costSpeedSpec: CostSpeedSpecification;
-    infrastructureSpec: InfrastructureSpecification;
-    developerZooSpec: DeveloperZooSpecification;   
+    costSpeedSpec?: CostSpeedSpecification;
+    infrastructureSpec?: InfrastructureSpecification;
+    developerZooSpec?: DeveloperZooSpecification;   
 }
 
 export interface CostSpeedSpecification {

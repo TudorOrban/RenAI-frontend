@@ -1,1 +1,43 @@
-<p>project-specification works!</p>
+<div class="flex items-center justify-between w-full pt-8 pb-4">
+    <div class="text-lg font-semibold">
+        Job Specification
+    </div>
+
+    <div class="flex items-center">
+        <button
+            *ngFor="let type of SpecificationRenderType | keyvalue"
+            [ngClass]="{
+                'bg-gray-100': type.value == renderType()
+            }"
+            class="px-4 py-2 h-10 border border-gray-300 shadow-sm cursor-pointer hover:bg-gray-100 text-sm font-semibold" 
+            (click)="selectRenderType(type.value)"
+        >
+            {{ type.value }}
+        </button>
+
+        <div class="flex items-center space-x-2 ml-2">
+            
+            <button *ngIf="!isEditModeOn()" class="standard-write-button space-x-2" (click)="startEditMode()">
+                <fa-icon [icon]="faEdit"></fa-icon>
+                <p>Edit Specification</p>
+            </button>
+            <button *ngIf="isEditModeOn()" class="standard-action-button" (click)="cancelEdit()">
+                Cancel
+            </button>
+            <button *ngIf="isEditModeOn()" class="standard-write-button space-x-2" (click)="confirmEdit()">
+                <fa-icon [icon]="faSave"></fa-icon>
+                <p>Save</p>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="renderType() === SpecificationRenderType.UI">
+    <div class="flex items-center space-x-2">
+        <div class="font-semibold">App Specification</div>
+    </div>
+</div>
+
+<div *ngIf="renderType() === SpecificationRenderType.JSON">
+    <div #jsonEditorContainer class="h-80 bg-gray-50 border border-gray-300 rounded-md"></div>
+</div>
