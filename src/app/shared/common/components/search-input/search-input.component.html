@@ -1,10 +1,13 @@
 <div class="flex items-center">
     <input 
         type="text" 
-        class="h-9 w-64 px-2 py-1 bg-white text-black border border-gray-300 rounded-l-md outline-0"
+        [(ngModel)]="searchText"
+        (keydown.enter)="search()"
+        class="h-10 w-64 px-2 py-1 bg-white text-black border border-gray-300 rounded-l-md outline-0"
     />
     <button
-        class="standard-search-button rounded-r-md"
+        (click)="search()"
+        class="standard-search-button rounded-r-md rounded-l-none"
     >
         <fa-icon [icon]="faSearch"></fa-icon>
     </button>

@@ -8,6 +8,7 @@ import { AuthService } from '../../../../core/user/services/auth.service';
 import { ProjectSearchDto } from '../../models/Project';
 import { ProjectsHeaderComponent } from "./projects-header/projects-header.component";
 import { ProjectsListComponent } from "./projects-list/projects-list.component";
+import { SearchParams } from '../../../../shared/common/types/searchTypes';
 
 @Component({
   selector: 'app-projects',
@@ -18,6 +19,11 @@ import { ProjectsListComponent } from "./projects-list/projects-list.component";
 export class ProjectsComponent implements OnInit {
     currentUserId?: number;
     projects?: ProjectSearchDto[];
+    totalCount?: number;
+
+    searchParams: SearchParams = {
+        searchText: "", sortBy: "createdAt", isAscending: false, page: 1, itemsPerPage: 20
+    };
 
     constructor(
         private readonly projectService: ProjectService,
@@ -33,13 +39,14 @@ export class ProjectsComponent implements OnInit {
         );
     }
 
-    private searchProjects(): void {
+    searchProjects(): void {
         if (!this.currentUserId) return;
 
-        this.projectService.getProjectsByUserId(this.currentUserId).subscribe(
+        this.projectService.getProjectsByUserId(this.currentUserId, this.searchParams).subscribe(
             (data) => {
                 console.log("Data:", data);
-                this.projects = data;
+                this.projects = data.results;
+                this.totalCount = data?.totalCount;
             },
             (error) => {
                 console.log("Error:", error);

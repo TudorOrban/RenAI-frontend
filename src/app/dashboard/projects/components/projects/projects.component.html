@@ -1,4 +1,7 @@
-<app-projects-header></app-projects-header>
+<app-projects-header
+    [searchParams]="searchParams"
+    (searchParamsChanged)="searchProjects()"
+></app-projects-header>
 
 <app-projects-list
     [projects]="projects"

@@ -3,6 +3,7 @@ import { environment } from "../../../../enviroments/environment-dev";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { CreateProjectDto, ProjectDataDto, ProjectSearchDto, UpdateProjectDto } from "../models/Project";
+import { PaginatedResults, SearchParams } from "../../../shared/common/types/searchTypes";
 
 @Injectable({
     providedIn: "root"
@@ -14,12 +15,12 @@ export class ProjectService {
         private http: HttpClient
     ) {}
 
-    getProjectsByUserId(userId: number): Observable<ProjectSearchDto[]> {
-        return this.http.get<ProjectSearchDto[]>(`${this.apiUrl}/user/${userId}`);
+    getProjectsByUserId(userId: number, searchParams: SearchParams): Observable<PaginatedResults<ProjectSearchDto>> {
+        return this.http.get<PaginatedResults<ProjectSearchDto>>(`${this.apiUrl}/user/${userId}`, { params: { ...searchParams } });
     }
 
     getProject(id: number): Observable<ProjectDataDto> {
-        return this.http.get<ProjectDataDto>(`${this.apiUrl}/{id}`);
+        return this.http.get<ProjectDataDto>(`${this.apiUrl}/${id}`);
     }
 
     createProject(projectDto: CreateProjectDto): Observable<ProjectDataDto> {

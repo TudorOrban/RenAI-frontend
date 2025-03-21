@@ -1,0 +1,39 @@
+<div class="page-std-padding-x page-std-padding-y">
+    <div class="space-y-4">
+        <div class="flex items-center space-x-2">
+            <div class="font-semibold">Created At:</div>
+            <p class="text-gray-700">{{ dataFormatterService.formatDate(project?.createdAt) }}</p>
+        </div>
+        <div class="flex items-center space-x-2">
+            <div class="font-semibold">Last Modified:</div>
+            <p class="text-gray-700">{{ dataFormatterService.formatDate(project?.updatedAt) }}</p>
+        </div>
+    </div>
+
+    <div class="flex items-center justify-between w-full pt-8 pb-4">
+        <div class="text-lg font-semibold">
+            Job Specification
+        </div>
+
+        <div class="flex items-center">
+            <button
+                *ngFor="let type of SpecificationRenderType | keyvalue"
+                [ngClass]="{
+                    'bg-gray-100': type.value == renderType()
+                }"
+                class="px-4 py-2 h-10 border border-gray-300 rounded-md shadow-sm cursor-pointer hover:bg-gray-100 text-sm font-semibold" 
+                (click)="selectRenderType(type.value)"
+            >
+                {{ type.value }}
+            </button>
+            <button class="standard-write-button space-x-2 ml-2">
+                <fa-icon [icon]="faEdit"></fa-icon>
+                <p>Edit Specification</p>
+            </button>
+        </div>
+    </div>
+    <app-project-specification
+        [project]="project"
+        [renderType]="renderType()"
+    ></app-project-specification>
+</div>
