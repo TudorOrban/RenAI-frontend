@@ -1,19 +1,19 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, effect, Input, signal } from '@angular/core';
 import { JobSpecification } from '../../../../models/Project';
 import { DataFormatterService } from '../../../../../../shared/common/services/data-formatter.service';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
+import { JobSpecificationEditorService } from '../../../../services/ui/job-specification-editor.service';
 
 @Component({
-  selector: 'app-uispecification',
-  imports: [CommonModule, FontAwesomeModule],
-  templateUrl: './uispecification.component.html',
-  styleUrl: './uispecification.component.css'
+    selector: 'app-uispecification',
+    imports: [CommonModule, FontAwesomeModule],
+    templateUrl: './uispecification.component.html',
 })
 export class UISpecificationComponent {
     @Input() jobSpecification?: JobSpecification;
-    @Input() isEditModeOn?: boolean;
+    isEditModeOn = signal(false);
 
     isAppSpecExpanded = signal(false);
     isBackendStackExpanded = signal(true);
@@ -24,8 +24,13 @@ export class UISpecificationComponent {
     isDeveloperZooSpecExpanded = signal(true);
 
     constructor(
+        private readonly editorService: JobSpecificationEditorService,
         readonly dataFormatterService: DataFormatterService
-    ) {}
+    ) {
+        effect(() => {
+            this.isEditModeOn.set(this.editorService.isEditModeOn());
+        });
+    }
 
 
     toggleAppSpecExpanded(): void {

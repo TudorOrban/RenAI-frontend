@@ -5,10 +5,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-project-header',
-  imports: [CommonModule, FontAwesomeModule],
-  templateUrl: './project-header.component.html',
-  styleUrl: './project-header.component.css'
+    selector: 'app-project-header',
+    imports: [CommonModule, FontAwesomeModule],
+    templateUrl: './project-header.component.html',
 })
 export class ProjectHeaderComponent {
     @Input() project?: ProjectDataDto;

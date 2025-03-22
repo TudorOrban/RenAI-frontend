@@ -10,10 +10,9 @@ import { PageSearchConfiguration, SearchParams } from '../../../../../shared/com
 import { pagesSearchConfiguration } from '../../../../../core/main/config/pagesSearchConfiguration';
 
 @Component({
-  selector: 'app-projects-header',
-  imports: [CommonModule, FontAwesomeModule, RouterModule, SearchInputComponent, SelectorComponent],
-  templateUrl: './projects-header.component.html',
-  styleUrl: './projects-header.component.css'
+    selector: 'app-projects-header',
+    imports: [CommonModule, FontAwesomeModule, RouterModule, SearchInputComponent, SelectorComponent],
+    templateUrl: './projects-header.component.html',
 })
 export class ProjectsHeaderComponent {
     @Input() searchParams!: SearchParams;

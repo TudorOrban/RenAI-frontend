@@ -4,10 +4,9 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-project-medium-card',
-  imports: [CommonModule, RouterModule],
-  templateUrl: './project-medium-card.component.html',
-  styleUrl: './project-medium-card.component.css'
+    selector: 'app-project-medium-card',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './project-medium-card.component.html',
 })
 export class ProjectMediumCardComponent {
     @Input() project?: ProjectSearchDto;

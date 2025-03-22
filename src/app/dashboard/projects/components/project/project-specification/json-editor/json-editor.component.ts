@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
+import { Component, effect, ElementRef, OnDestroy, ViewChild } from "@angular/core";
 import JSONEditor from "jsoneditor";
 import { JobSpecificationEditorService } from "../../../../services/ui/job-specification-editor.service";
 import { Subscription } from "rxjs";
@@ -7,17 +7,23 @@ import { Subscription } from "rxjs";
     selector: "app-json-editor",
     imports: [],
     templateUrl: "./json-editor.component.html",
-    styleUrl: "./json-editor.component.css",
 })
 export class JsonEditorComponent implements OnDestroy {
     @ViewChild("jsonEditorContainer") jsonEditorContainer?: ElementRef;
 
     private jsonEditor?: JSONEditor;
-    private subscription: Subscription;
-    
-    constructor(public editorService: JobSpecificationEditorService) {
-        this.subscription = this.editorService.jobSpecification$.subscribe(() => {
+    private jobSpecSubscription: Subscription;
+
+    constructor(
+        private readonly editorService: JobSpecificationEditorService
+    ) {
+        this.jobSpecSubscription = this.editorService.jobSpecification$.subscribe(() => {
             this.initializeEditor();
+        });
+
+        effect(() => {
+            this.editorService.isEditModeOn();             
+            this.jsonEditor?.setMode(this.editorService.isEditModeOn() ? "code" : "view");
         });
     }
 
@@ -26,7 +32,7 @@ export class JsonEditorComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+        this.jobSpecSubscription.unsubscribe();
     }
 
     private initializeEditor(): void {

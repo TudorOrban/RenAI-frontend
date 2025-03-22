@@ -11,10 +11,9 @@ import { ProjectsListComponent } from "./projects-list/projects-list.component";
 import { SearchParams } from '../../../../shared/common/types/searchTypes';
 
 @Component({
-  selector: 'app-projects',
-  imports: [CommonModule, FontAwesomeModule, ProjectsHeaderComponent, ProjectsListComponent],
-  templateUrl: './projects.component.html',
-  styleUrl: './projects.component.css'
+    selector: 'app-projects',
+    imports: [CommonModule, FontAwesomeModule, ProjectsHeaderComponent, ProjectsListComponent],
+    templateUrl: './projects.component.html',
 })
 export class ProjectsComponent implements OnInit {
     currentUserId?: number;

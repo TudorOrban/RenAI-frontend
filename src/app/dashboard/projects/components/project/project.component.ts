@@ -13,7 +13,6 @@ import { ActivatedRoute, Router } from "@angular/router";
     selector: "app-project",
     imports: [CommonModule, FontAwesomeModule, ProjectHeaderComponent, ProjectOverviewComponent],
     templateUrl: "./project.component.html",
-    styleUrl: "./project.component.css",
 })
 export class ProjectComponent {
     projectId?: number;

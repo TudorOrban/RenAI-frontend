@@ -9,19 +9,20 @@ import { JsonEditorComponent } from "./json-editor/json-editor.component";
 import { JobSpecificationEditorService } from '../../../services/ui/job-specification-editor.service';
 
 @Component({
-  selector: 'app-project-specification',
-  imports: [CommonModule, FontAwesomeModule, UISpecificationComponent, JsonEditorComponent],
-  templateUrl: './project-specification.component.html',
-  styleUrl: './project-specification.component.css'
+    selector: 'app-project-specification',
+    imports: [CommonModule, FontAwesomeModule, UISpecificationComponent, JsonEditorComponent],
+    templateUrl: './project-specification.component.html',
 })
 export class ProjectSpecificationComponent implements OnChanges {
     @Input() project?: ProjectDataDto;
     @ViewChild("jsonEditorContainer") jsonEditorContainer?: ElementRef;
 
     jobSpecification?: JobSpecification;
-    renderType = signal<SpecificationRenderType>(SpecificationRenderType.JSON);
+    renderType = signal<SpecificationRenderType>(SpecificationRenderType.UI);
 
-    constructor(public editorService: JobSpecificationEditorService) {}
+    constructor(
+        readonly editorService: JobSpecificationEditorService
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['project'] && this.project) {
@@ -34,6 +35,7 @@ export class ProjectSpecificationComponent implements OnChanges {
 
     selectRenderType(renderType: SpecificationRenderType): void {
         if (this.renderType() === renderType) return;
+        if (this.isEditModeOn()) return;
         this.renderType.set(renderType);
     }
     

@@ -10,7 +10,6 @@ import { AuthService } from "../../../../core/user/services/auth.service";
     selector: "app-create-project",
     imports: [CommonModule, FormsModule],
     templateUrl: "./create-project.component.html",
-    styleUrl: "./create-project.component.css",
 })
 export class CreateProjectComponent implements OnInit {
     project: CreateProjectDto = {

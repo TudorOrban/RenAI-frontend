@@ -4,16 +4,18 @@
     </div>
 
     <div class="flex items-center">
-        <button
-            *ngFor="let type of SpecificationRenderType | keyvalue"
-            [ngClass]="{
-                'bg-gray-100': type.value == renderType()
-            }"
-            class="px-4 py-2 h-10 border border-gray-300 shadow-sm cursor-pointer hover:bg-gray-100 text-sm font-semibold" 
-            (click)="selectRenderType(type.value)"
-        >
-            {{ type.value }}
-        </button>
+        <div *ngIf="!isEditModeOn()" class="flex items-center">
+            <button
+                *ngFor="let type of SpecificationRenderType | keyvalue"
+                [ngClass]="{
+                    'bg-gray-100': type.value == renderType()
+                }"
+                class="px-4 py-2 h-10 border border-gray-300 shadow-sm cursor-pointer hover:bg-gray-100 text-sm font-semibold" 
+                (click)="selectRenderType(type.value)"
+            >
+                {{ type.value }}
+            </button>
+        </div>
 
         <div class="flex items-center space-x-2 ml-2">
             <button *ngIf="!isEditModeOn()" class="standard-write-button space-x-2" (click)="startEditMode()">
@@ -34,7 +36,6 @@
 <div *ngIf="renderType() === SpecificationRenderType.UI">
     <app-uispecification
         [jobSpecification]="project?.jobSpecification"
-        [isEditModeOn]="isEditModeOn()"
     ></app-uispecification>
 </div>
 
