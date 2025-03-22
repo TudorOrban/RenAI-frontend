@@ -22,6 +22,13 @@ export class DataFormatterService {
 
     formatEnumString(enumString?: string): string {
         if (!enumString) return "";
-        return enumString.charAt(0) + enumString.substring(1).toLowerCase()
+    
+        const words = enumString.split("_");
+        const formattedWords = words.map(word => {
+            if (word.length === 0) return "";
+            return word.charAt(0).toUpperCase() + word.substring(1).toLowerCase();
+        });
+    
+        return formattedWords.join(" ");
     }
 }

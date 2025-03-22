@@ -1,17 +1,127 @@
 <div class="space-y-4">
-    <div class="font-semibold">App Specification</div>
-    <div class="flex items-center space-x-2">
-        <div class="font-semibold">App Name</div>
-        <p class="text-gray-800">{{ jobSpecification?.appSpecification?.appName ?? 'None' }}</p>
+    <!-- App Specification -->
+    <div class="flex items-center space-x-4">
+        <h2 class="text-lg font-semibold">A. App Specification</h2>
+        <button class="text-gray-700 cursor-pointer" (click)="toggleAppSpecExpanded()">
+            <fa-icon [icon]="isAppSpecExpanded() ? faCaretUp : faCaretDown"></fa-icon>
+        </button>
     </div>
-    <div class="space-y-2">
-        <div class="font-semibold">Functional Specifications</div>
-        <div *ngFor="let functionalSpec of jobSpecification?.appSpecification?.functionalSpecifications">
-            {{ functionalSpec }}
+    <div *ngIf="isAppSpecExpanded()" class="space-y-4">
+        <div class="flex items-center space-x-2">
+            <div class="font-semibold">App Name</div>
+            <p class="text-gray-800">{{ jobSpecification?.appSpecification?.appName ?? 'None' }}</p>
+        </div>
+        <div class="space-y-2">
+            <div class="font-semibold">Functional Specifications</div>
+            <div *ngFor="let functionalSpec of jobSpecification?.appSpecification?.functionalSpecifications">
+                {{ '• ' + functionalSpec }}
+            </div>
+        </div>
+        <div class="flex items-center space-x-2">
+            <div class="font-semibold">App Type</div>
+            <p class="text-gray-800">{{ dataFormatterService.formatEnumString(jobSpecification?.appSpecification?.appType ?? 'None') }}</p>
+        </div>
+    
+        <!-- Backend Stack -->
+        <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+                <h2 class="font-semibold" style="font-size: 17px;">• Backend Stack</h2>
+                <button class="text-gray-700 cursor-pointer" (click)="toggleBackendStackExpanded()">
+                    <fa-icon [icon]="isBackendStackExpanded() ? faCaretUp : faCaretDown"></fa-icon>
+                </button>
+            </div>
+
+            <div *ngIf="isBackendStackExpanded()">
+                <div class="flex items-center space-x-2">
+                    <div class="font-semibold">App Type</div>
+                    <p class="text-gray-800">{{ dataFormatterService.formatEnumString(jobSpecification?.appSpecification?.backendStack?.architecture ?? 'None') }}</p>
+                </div>
+
+                <h2 class="pt-4 font-semibold" style="font-size: 17px;">Services:</h2>
+
+                <div class="flex items-center flex-wrap space-x-16">
+                    <div *ngFor="let service of jobSpecification?.appSpecification?.backendStack?.services" class="py-2 space-y-2">
+                        <div class="flex items-center space-x-2">
+                            <div class="font-semibold">Name</div>
+                            <p class="text-gray-800">{{ service.name }}</p>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <div class="font-semibold">Framework</div>
+                            <p class="text-gray-800">{{ dataFormatterService.formatEnumString(service.framework ?? 'None') }}</p>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <div class="font-semibold">Database</div>
+                            <p class="text-gray-800">{{ dataFormatterService.formatEnumString(service.database ?? 'None') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Frontend Stack -->
+        <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+                <h2 class="font-semibold" style="font-size: 17px;">• Frontend Stack</h2>
+                <button class="text-gray-700 cursor-pointer" (click)="toggleFrontendStackExpanded()">
+                    <fa-icon [icon]="isFrontendStackExpanded() ? faCaretUp : faCaretDown"></fa-icon>
+                </button>
+            </div>
+
+            <div *ngIf="isFrontendStackExpanded()">
+                <div class="flex items-center space-x-2">
+                    <div class="font-semibold">Framework</div>
+                    <p class="text-gray-800">{{ dataFormatterService.formatEnumString(jobSpecification?.appSpecification?.frontendStack?.framework ?? 'None') }}</p>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="flex items-center space-x-2">
-        <div class="font-semibold">App Type</div>
-        <p class="text-gray-800">{{ dataFormatterService.formatEnumString(jobSpecification?.appSpecification?.appType ?? 'None') }}</p>
+
+    <!-- Development Specification -->
+    <div class="flex items-center space-x-4">
+        <h2 class="text-lg font-semibold">B. Development Specification</h2>
+        <button class="text-gray-700 cursor-pointer" (click)="toggleDevelopmentSpecExpanded()">
+            <fa-icon [icon]="isDevelopmentSpecExpanded() ? faCaretUp : faCaretDown"></fa-icon>
+        </button>
+    </div>
+    <div *ngIf="isDevelopmentSpecExpanded()" class="space-y-4">
+        <div class="flex items-center space-x-4">
+            <h2 class="font-semibold" style="font-size: 17px;">• Cost Speed Specification</h2>
+            <button class="text-gray-700 cursor-pointer" (click)="toggleCostSpeedSpecExpanded()">
+                <fa-icon [icon]="isCostSpeedSpecExpanded() ? faCaretUp : faCaretDown"></fa-icon>
+            </button>
+        </div>
+        <div *ngIf="isCostSpeedSpecExpanded()" class="space-y-4">
+            <div class="flex items-center space-x-2">
+                <div class="font-semibold">Maximum Cost ($)</div>
+                <p class="text-gray-800">{{ jobSpecification?.developmentSpecification?.costSpeedSpec?.maxCostDollars }}</p>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <div class="font-semibold">Maximum Time</div>
+                <p class="text-gray-800">{{ jobSpecification?.developmentSpecification?.costSpeedSpec?.maxTimeSeconds }}</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <h2 class="font-semibold" style="font-size: 17px;">• Infrastructure Specification</h2>
+            <button class="text-gray-700 cursor-pointer" (click)="toggleInfrastructureSpecExpanded()">
+                <fa-icon [icon]="isInfrastructureSpecExpanded() ? faCaretUp : faCaretDown"></fa-icon>
+            </button>
+        </div>
+        <div *ngIf="isInfrastructureSpecExpanded()" class="space-y-4">
+            
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <h2 class="font-semibold" style="font-size: 17px;">• Developer Zoo Specification</h2>
+            <button class="text-gray-700 cursor-pointer" (click)="toggleDeveloperZooSpecExpanded()">
+                <fa-icon [icon]="isDeveloperZooSpecExpanded() ? faCaretUp : faCaretDown"></fa-icon>
+            </button>
+        </div>
+        <div *ngIf="isDeveloperZooSpecExpanded()" class="space-y-4">
+            
+        </div>
     </div>
 </div>
