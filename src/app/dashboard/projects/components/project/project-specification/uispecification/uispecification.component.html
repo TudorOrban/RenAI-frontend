@@ -3,7 +3,7 @@
         <app-text-field
             label="App Name:"
             [value]="jobSpecification?.appSpecification?.appName"
-            [isEditModeOn]="isEditModeOn()"
+            [fieldId]="'appName'"
         ></app-text-field>
         <app-array-field
             label="Functional Specifications:"
@@ -15,7 +15,6 @@
         <app-enum-field
             label="App Type:"
             [value]="jobSpecification?.appSpecification?.appType"
-            [isEditModeOn]="isEditModeOn()"
             [enumOptions]="specFormatterService.getAppTypeOptions()"
         ></app-enum-field>
         <app-section-header
@@ -26,7 +25,6 @@
             <app-enum-field
                 label="Architecture:"
                 [value]="jobSpecification?.appSpecification?.backendStack?.architecture"
-                [isEditModeOn]="isEditModeOn()"
                 [enumOptions]="specFormatterService.getArchitectureOptions()"
             ></app-enum-field>
             <app-section-header title="Services" [depth]="2">
@@ -38,18 +36,16 @@
                         <app-text-field
                             label="Name:"
                             [value]="service.name"
-                            [isEditModeOn]="isEditModeOn()"
+                            [fieldId]="'appName'"
                         ></app-text-field>
                         <app-enum-field
                             label="Framework:"
                             [value]="service.framework"
-                            [isEditModeOn]="isEditModeOn()"
                             [enumOptions]="specFormatterService.getBackendFrameworkOptions()"
                         ></app-enum-field>
                         <app-enum-field
                             label="Database:"
                             [value]="service.database"
-                            [isEditModeOn]="isEditModeOn()"
                             [enumOptions]="specFormatterService.getServiceDatabaseOptions()"
                         ></app-enum-field>
                     </div>
@@ -64,7 +60,6 @@
             <app-enum-field
                 label="Framework:"
                 [value]="jobSpecification?.appSpecification?.frontendStack?.framework"
-                [isEditModeOn]="isEditModeOn()"
                 [enumOptions]="specFormatterService.getFrontendFrameworkOptions()"
             ></app-enum-field>
         </app-section-header>
@@ -75,12 +70,10 @@
             <app-text-field
                 label="Maximum Cost ($):"
                 [value]="jobSpecification?.developmentSpecification?.costSpeedSpec?.maxCostDollars?.toString() ?? 'None'"
-                [isEditModeOn]="isEditModeOn()"
             ></app-text-field>
             <app-text-field
                 label="Maximum Time (s):"
                 [value]="jobSpecification?.developmentSpecification?.costSpeedSpec?.maxTimeSeconds?.toString() ?? 'None'"
-                [isEditModeOn]="isEditModeOn()"
             ></app-text-field>
         </app-section-header>
 
@@ -97,13 +90,11 @@
                     <app-enum-field
                         label="Compute Type:"
                         [value]="nodeSpec.computeType"
-                        [isEditModeOn]="isEditModeOn()"
                         [enumOptions]="specFormatterService.getComputeTypeOptions()"
                     ></app-enum-field>
                     <app-enum-field
                         label="Node VM Size:"
                         [value]="nodeSpec.vmSize"
-                        [isEditModeOn]="isEditModeOn()"
                         [enumOptions]="specFormatterService.getNodeVMSizeOptions()"
                     ></app-enum-field>
                 </div>
@@ -123,12 +114,10 @@
                     <app-text-field
                         label="Developer Name:"
                         [value]="developerSpec.name"
-                        [isEditModeOn]="isEditModeOn()"
                     ></app-text-field>
                     <app-text-field
                         label="Developer Description:"
                         [value]="developerSpec.description"
-                        [isEditModeOn]="isEditModeOn()"
                     ></app-text-field>
                     <app-array-field
                         label="Developer Subtasks:"

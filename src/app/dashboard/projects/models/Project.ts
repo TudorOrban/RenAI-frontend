@@ -28,8 +28,8 @@ export interface UpdateProjectDto {
 }
 
 export interface JobSpecification {
-    appSpecification: AppSpecification;
-    developmentSpecification: DevelopmentSpecification;
+    appSpecification?: AppSpecification;
+    developmentSpecification?: DevelopmentSpecification;
 }
 
 // App Spec
@@ -109,6 +109,7 @@ export interface InfrastructureSpecification {
 }
 
 export interface NodeSpecification {
+    name?: string;
     computeType?: ComputeType;
     vmSize?: NodeVMSize;
 }

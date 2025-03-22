@@ -54,7 +54,6 @@ export class JobSpecificationEditorService {
         try {
             jobSpecification = JSON.parse(this.stateService.jsonStringFromEditor ?? "");
         } catch (error) {
-            console.log("JSON:", this.stateService.jsonStringFromEditor);
             console.error("Invalid JSON:", error);
             return new Observable<ProjectDataDto>();
         }
