@@ -6,10 +6,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpecificationRenderType } from '../../../models/uiTypes';
 import { faEdit, faSave } from '@fortawesome/free-solid-svg-icons';
 import { ProjectService } from '../../../services/project.service';
+import { UISpecificationComponent } from "./uispecification/uispecification.component";
 
 @Component({
   selector: 'app-project-specification',
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, UISpecificationComponent],
   templateUrl: './project-specification.component.html',
   styleUrl: './project-specification.component.css'
 })
@@ -17,11 +18,10 @@ export class ProjectSpecificationComponent implements OnChanges, AfterViewInit {
     @Input() project?: ProjectDataDto;
     @ViewChild("jsonEditorContainer") jsonEditorContainer?: ElementRef;
 
-    renderType = signal<SpecificationRenderType>(SpecificationRenderType.JSON);
+    renderType = signal<SpecificationRenderType>(SpecificationRenderType.UI);
     isEditModeOn = signal(false);
     jsonEditor?: JSONEditor;
     jsonValue?: string;
-    isProjectLoaded = false;
 
     updateProjectDto: UpdateProjectDto = {
         id: 0, userId: 0, name: "",
@@ -98,7 +98,6 @@ export class ProjectSpecificationComponent implements OnChanges, AfterViewInit {
     }
 
     confirmEdit(): void {
-        console.log("Json", this.jsonValue);
         const jobSpecification = this.validateJson();
         if (!jobSpecification) {
             console.error("Invalid job specification");

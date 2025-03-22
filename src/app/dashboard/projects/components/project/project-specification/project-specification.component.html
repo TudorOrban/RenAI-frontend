@@ -16,7 +16,6 @@
         </button>
 
         <div class="flex items-center space-x-2 ml-2">
-            
             <button *ngIf="!isEditModeOn()" class="standard-write-button space-x-2" (click)="startEditMode()">
                 <fa-icon [icon]="faEdit"></fa-icon>
                 <p>Edit Specification</p>
@@ -33,9 +32,9 @@
 </div>
 
 <div *ngIf="renderType() === SpecificationRenderType.UI">
-    <div class="flex items-center space-x-2">
-        <div class="font-semibold">App Specification</div>
-    </div>
+    <app-uispecification
+        [jobSpecification]="project?.jobSpecification"
+    ></app-uispecification>
 </div>
 
 <div *ngIf="renderType() === SpecificationRenderType.JSON">

@@ -19,4 +19,9 @@ export class DataFormatterService {
             return "Invalid Date";
         }
     }
+
+    formatEnumString(enumString?: string): string {
+        if (!enumString) return "";
+        return enumString.charAt(0) + enumString.substring(1).toLowerCase()
+    }
 }

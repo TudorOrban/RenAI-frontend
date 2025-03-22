@@ -1,5 +1,5 @@
 export enum SpecificationRenderType {
     UI = "UI",
     JSON = "JSON",
-    YAML = "YAML"
+    // YAML = "YAML"
 }
