@@ -34,9 +34,11 @@
 <div *ngIf="renderType() === SpecificationRenderType.UI">
     <app-uispecification
         [jobSpecification]="project?.jobSpecification"
+        [isEditModeOn]="isEditModeOn()"
     ></app-uispecification>
 </div>
 
 <div *ngIf="renderType() === SpecificationRenderType.JSON">
-    <div #jsonEditorContainer class="h-80 bg-gray-50 border border-gray-300 rounded-md"></div>
+    <app-json-editor
+    ></app-json-editor>
 </div>

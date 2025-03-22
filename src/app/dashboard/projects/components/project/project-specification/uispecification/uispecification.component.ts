@@ -13,6 +13,7 @@ import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 })
 export class UISpecificationComponent {
     @Input() jobSpecification?: JobSpecification;
+    @Input() isEditModeOn?: boolean;
 
     isAppSpecExpanded = signal(false);
     isBackendStackExpanded = signal(true);

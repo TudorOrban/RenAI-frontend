@@ -5,7 +5,7 @@ import { ProjectHeaderComponent } from "./project-header/project-header.componen
 import { ProjectOverviewComponent } from "./project-overview/project-overview.component";
 import { ProjectDataDto } from "../../models/Project";
 import { UserDataDto } from "../../../../core/user/models/User";
-import { ProjectService } from "../../services/project.service";
+import { ProjectService } from "../../services/api/project.service";
 import { AuthService } from "../../../../core/user/services/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
 

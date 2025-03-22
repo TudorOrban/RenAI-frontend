@@ -3,7 +3,7 @@ import { FormsModule } from "@angular/forms";
 import { CreateProjectDto } from "../../models/Project";
 import { CommonModule } from "@angular/common";
 import { Router } from "@angular/router";
-import { ProjectService } from "../../services/project.service";
+import { ProjectService } from "../../services/api/project.service";
 import { AuthService } from "../../../../core/user/services/auth.service";
 
 @Component({

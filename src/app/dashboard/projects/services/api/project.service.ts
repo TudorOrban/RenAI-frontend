@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { environment } from "../../../../enviroments/environment-dev";
+import { environment } from "../../../../../enviroments/environment-dev";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { CreateProjectDto, ProjectDataDto, ProjectSearchDto, UpdateProjectDto } from "../models/Project";
-import { PaginatedResults, SearchParams } from "../../../shared/common/types/searchTypes";
+import { CreateProjectDto, ProjectDataDto, ProjectSearchDto, UpdateProjectDto } from "../../models/Project";
+import { PaginatedResults, SearchParams } from "../../../../shared/common/types/searchTypes";
 
 @Injectable({
     providedIn: "root"

@@ -3,7 +3,7 @@ import { SearchInputComponent } from "../../../../shared/common/components/searc
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { ProjectService } from '../../services/project.service';
+import { ProjectService } from '../../services/api/project.service';
 import { AuthService } from '../../../../core/user/services/auth.service';
 import { ProjectSearchDto } from '../../models/Project';
 import { ProjectsHeaderComponent } from "./projects-header/projects-header.component";
