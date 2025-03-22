@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnChanges, signal, SimpleChanges, ViewChild } from '@angular/core';
-import { UpdateProjectDto, JobSpecification, ProjectDataDto } from '../../../models/Project';
+import { JobSpecification, ProjectDataDto } from '../../../models/Project';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpecificationRenderType } from '../../../models/uiTypes';
@@ -58,10 +58,6 @@ export class ProjectSpecificationComponent implements OnChanges {
 
     cancelEdit(): void {
         this.editorService.cancelEdit(this.project as ProjectDataDto);
-    }
-
-    onJsonChange(jsonString: string): void {
-        this.editorService.onJsonChange(jsonString);
     }
 
     SpecificationRenderType = SpecificationRenderType;

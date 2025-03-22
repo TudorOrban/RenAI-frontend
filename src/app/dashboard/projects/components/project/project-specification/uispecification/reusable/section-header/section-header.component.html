@@ -1,0 +1,6 @@
+<div class="flex items-center space-x-4">
+    <h2 class="text-lg font-semibold">{{ title }}</h2>
+    <button class="text-gray-700 cursor-pointer" (click)="toggleExpanded()">
+        <fa-icon [icon]="isExpanded() ? faCaretUp : faCaretDown"></fa-icon>
+    </button>
+</div>
