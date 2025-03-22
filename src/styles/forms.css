@@ -8,7 +8,7 @@
     width: 100%;
     padding: 0.5rem;
     margin-bottom: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
     box-sizing: border-box;
 }
@@ -16,4 +16,11 @@
 .form-error-message {
     color: rgb(175, 11, 11);
     margin-bottom: 1rem;
+}
+
+.form-text-field-small {
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
 }

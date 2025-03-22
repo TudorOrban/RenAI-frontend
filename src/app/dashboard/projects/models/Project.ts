@@ -58,11 +58,11 @@ export enum BackendArchitecture {
 
 export interface BackendService {
     name: string;
-    framework?: ServiceFramework;
+    framework?: BackendFramework;
     database?: ServiceDatabase;
 }
 
-export enum ServiceFramework {
+export enum BackendFramework {
     SPRING_BOOT = "SPRING_BOOT",
     DOT_NET = "DOT_NET",
     FASTAPI = "FASTAPI",

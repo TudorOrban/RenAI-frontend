@@ -1,4 +1,12 @@
 <div class="flex items-center space-x-2">
     <div class="whitespace-nowrap font-semibold">{{ label }}</div>
-    <p class="text-gray-800">{{ value ?? 'None' }}</p>
+    <p *ngIf="!isEditModeOn" class="text-gray-800">{{ value ?? 'None' }}</p>
+    <div *ngIf="isEditModeOn">
+        <input 
+            type="text"
+            [(ngModel)]="value"
+            placeholder="None"
+            class="form-text-field-small"
+        />
+    </div>
 </div>

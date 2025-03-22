@@ -1,4 +1,12 @@
 <div class="flex items-center space-x-2">
     <div class="whitespace-nowrap font-semibold">{{ label }}</div>
-    <p class="whitespace-nowrap text-gray-800">{{ this.dataFormatterService.formatEnumString(value?.toString() ?? 'None') }}</p>
+    <p *ngIf="!isEditModeOn" class="whitespace-nowrap text-gray-800">{{ this.dataFormatterService.formatEnumString(value?.toString() ?? 'None') }}</p>
+
+    <div *ngIf="isEditModeOn">
+        <app-selector
+            [items]="enumOptions ?? []"
+            [defaultItemValue]="value?.toString()"
+            (selectedItemChange)="onSelectedItemChange($event)"
+        ></app-selector>
+    </div>
 </div>
