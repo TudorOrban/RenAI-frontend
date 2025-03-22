@@ -22,8 +22,13 @@ export class JobSpecificationEditorService {
 
     setProjectData(project: ProjectDataDto): void {
         this.setProjectDto(project);
-        this.stateService.setEditedSpecification(project.jobSpecification);
+        console.log("Spec", project.jobSpecification?.appSpecification?.appName);
+        this.stateService.setEditedSpecification(this.deepCopy(project.jobSpecification));
         this.updateJsonValue(project.jobSpecification);
+    }
+
+    private deepCopy<T>(obj: T): T {
+        return JSON.parse(JSON.stringify(obj));
     }
 
     setProjectDto(project: ProjectDataDto): void {
@@ -68,9 +73,7 @@ export class JobSpecificationEditorService {
 
         return this.projectService.updateProject(this.updateProjectDto).pipe(
             tap((data) => {
-                this.stateService.setEditedSpecification(data.jobSpecification);
-                this.stateService.setIsEditModeOn(false);
-                this.updateJsonValue(data.jobSpecification);
+                this.handleSuccessfulUpdate(data);
             })
         );
     }
@@ -81,11 +84,15 @@ export class JobSpecificationEditorService {
 
         return this.projectService.updateProject(this.updateProjectDto).pipe(
             tap((data) => {
-                this.stateService.setEditedSpecification(data.jobSpecification);
-                this.stateService.setIsEditModeOn(false);
-                this.updateJsonValue(data.jobSpecification);
+                this.handleSuccessfulUpdate(data);
             })
         );
+    }
+
+    private handleSuccessfulUpdate(updatedProject: ProjectDataDto): void {
+        this.stateService.setEditedSpecification(updatedProject.jobSpecification);
+        this.stateService.setIsEditModeOn(false);
+        this.updateJsonValue(updatedProject.jobSpecification);
     }
 
     cancelEdit(project?: ProjectDataDto): void {

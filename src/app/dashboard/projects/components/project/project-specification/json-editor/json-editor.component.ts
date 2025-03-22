@@ -1,4 +1,4 @@
-import { Component, effect, ElementRef, OnDestroy, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, effect, ElementRef, OnDestroy, ViewChild } from "@angular/core";
 import JSONEditor from "jsoneditor";
 import { JobSpecificationEditorService } from "../../../../services/ui/job-specification-editor.service";
 import { combineLatest, distinctUntilChanged, map, Subscription } from "rxjs";
@@ -9,7 +9,7 @@ import { JobSpecificationStateService } from "../../../../services/ui/job-specif
     imports: [],
     templateUrl: "./json-editor.component.html",
 })
-export class JsonEditorComponent implements OnDestroy {
+export class JsonEditorComponent implements AfterViewInit, OnDestroy {
     @ViewChild("jsonEditorContainer") jsonEditorContainer?: ElementRef;
     
     private jsonEditor?: JSONEditor;
@@ -25,6 +25,10 @@ export class JsonEditorComponent implements OnDestroy {
         ]).subscribe(() => {
             this.syncEditor();
         });
+    }
+
+    ngAfterViewInit(): void {
+        setTimeout(() => this.syncEditor(), 0);
     }
 
     ngOnDestroy(): void {
@@ -53,11 +57,12 @@ export class JsonEditorComponent implements OnDestroy {
             } catch (error) {
                 console.error("Error initializing JSONEditor:", error);
             }
-        } else {
-            this.jsonEditor.setMode(this.stateService.isEditModeOn ? "code" : "view");
-            if (this.jsonEditor.getText() !== this.stateService.jsonValue) {
-                this.jsonEditor.setText(this.stateService.jsonValue ?? "");
-            }
+            return;
+        }
+        
+        this.jsonEditor.setMode(this.stateService.isEditModeOn ? "code" : "view");
+        if (this.jsonEditor.getText() !== this.stateService.jsonValue) {
+            this.jsonEditor.setText(this.stateService.jsonValue ?? "");
         }
     }
 

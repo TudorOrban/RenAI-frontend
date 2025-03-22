@@ -9,7 +9,7 @@ export class JobSpecificationUpdaterService {
     constructor(private stateService: JobSpecificationStateService) {}
 
     
-    updateField(fieldId: string, value: any, elementName?: string): void {
+    updateField(fieldId: string, value: any, index?: number): void {
         switch (fieldId) {
             case 'appName':
                 this.updateAppName(value as string);
@@ -27,10 +27,10 @@ export class JobSpecificationUpdaterService {
                 this.updateBackendServices(value as BackendService[]);
                 break;
             case 'backendFramework':
-                this.updateBackendFramework(value as BackendFramework, elementName);
+                this.updateBackendFramework(value as BackendFramework, index);
                 break;
             case 'serviceDatabase':
-                this.updateServiceDatabase(value as ServiceDatabase, elementName);
+                this.updateServiceDatabase(value as ServiceDatabase, index);
                 break;
             case 'frontendFramework':
                 this.updateFrontendFramework(value as FrontendFramework);
@@ -45,22 +45,22 @@ export class JobSpecificationUpdaterService {
                 this.updateNodeSpecs(value as NodeSpecification[]);
                 break;
             case 'computeType':
-                this.updateComputeType(value as ComputeType, elementName);
+                this.updateComputeType(value as ComputeType, index);
                 break;
             case 'nodeVMSize':
-                this.updateNodeVMSize(value as NodeVMSize, elementName);
+                this.updateNodeVMSize(value as NodeVMSize, index);
                 break;
             case 'developerSpecs':
                 this.updateDeveloperSpecs(value as DeveloperSpecification[]);
                 break;
             case 'developerName':
-                this.updateDeveloperName(value as string, elementName);
+                this.updateDeveloperName(value as string, index);
                 break;
             case 'developerDescription':
-                this.updateDeveloperDescription(value as string, elementName);
+                this.updateDeveloperDescription(value as string, index);
                 break;
             case 'developerSubtasks':
-                this.updateDeveloperSubtasks(value as string[], elementName);
+                this.updateDeveloperSubtasks(value as string[], index);
                 break;
             default:
                 console.warn(`Field ID "${fieldId}" not handled.`);
@@ -107,20 +107,22 @@ export class JobSpecificationUpdaterService {
         }
     }
 
-    updateBackendFramework(value: BackendFramework, elementName?: string): void {
+    updateBackendFramework(value: BackendFramework, index?: number): void {
+        if (!index) return;
         const currentSpec = this.stateService.editedSpecification;
         if (currentSpec && currentSpec.appSpecification && currentSpec.appSpecification.backendStack && currentSpec.appSpecification.backendStack.services) {
-            const service = currentSpec.appSpecification.backendStack.services.find((s) => s.name === elementName);
+            const service = currentSpec.appSpecification.backendStack.services[index];
             if (!service) return;
             service.framework = value;
             this.stateService.setEditedSpecification(currentSpec);
         }
     }
 
-    updateServiceDatabase(value: ServiceDatabase, elementName?: string): void {
-         const currentSpec = this.stateService.editedSpecification;
+    updateServiceDatabase(value: ServiceDatabase, index?: number): void {
+        if (!index) return;
+        const currentSpec = this.stateService.editedSpecification;
         if (currentSpec && currentSpec.appSpecification && currentSpec.appSpecification.backendStack && currentSpec.appSpecification.backendStack.services) {
-            const service = currentSpec.appSpecification.backendStack.services.find((s) => s.name === elementName);
+            const service = currentSpec.appSpecification.backendStack.services[index];
             if (!service) return;
             service.database = value;
             this.stateService.setEditedSpecification(currentSpec);
@@ -159,20 +161,22 @@ export class JobSpecificationUpdaterService {
         }
     }
 
-    updateComputeType(value: ComputeType, elementName?: string): void {
+    updateComputeType(value: ComputeType, index?: number): void {
+        if (!index) return;
         const currentSpec = this.stateService.editedSpecification;
         if (currentSpec && currentSpec.developmentSpecification && currentSpec.developmentSpecification.infrastructureSpec && currentSpec.developmentSpecification.infrastructureSpec.nodeSpecs) {
-            const node = currentSpec.developmentSpecification.infrastructureSpec.nodeSpecs.find((s) => s.name === elementName);
+            const node = currentSpec.developmentSpecification.infrastructureSpec.nodeSpecs[index];
             if (!node) return;
             node.computeType = value;
             this.stateService.setEditedSpecification(currentSpec);
         }
     }
 
-    updateNodeVMSize(value: NodeVMSize, elementName?: string): void {
+    updateNodeVMSize(value: NodeVMSize, index?: number): void {
+        if (!index) return;
         const currentSpec = this.stateService.editedSpecification;
         if (currentSpec && currentSpec.developmentSpecification && currentSpec.developmentSpecification.infrastructureSpec && currentSpec.developmentSpecification.infrastructureSpec.nodeSpecs) {
-            const node = currentSpec.developmentSpecification.infrastructureSpec.nodeSpecs.find((s) => s.name === elementName);
+            const node = currentSpec.developmentSpecification.infrastructureSpec.nodeSpecs[index];
             if (!node) return;
             node.vmSize = value;
             this.stateService.setEditedSpecification(currentSpec);
@@ -187,30 +191,33 @@ export class JobSpecificationUpdaterService {
         }
     }
 
-    updateDeveloperName(value: string, elementName?: string): void {
+    updateDeveloperName(value: string, index?: number): void {
+        if (!index) return;
         const currentSpec = this.stateService.editedSpecification;
         if (currentSpec && currentSpec.developmentSpecification && currentSpec.developmentSpecification.developerZooSpec && currentSpec.developmentSpecification.developerZooSpec.developerSpecs) {
-            const developer = currentSpec.developmentSpecification.developerZooSpec.developerSpecs.find((s) => s.name === elementName);
+            const developer = currentSpec.developmentSpecification.developerZooSpec.developerSpecs[index];
             if (!developer) return;
             developer.name = value;
             this.stateService.setEditedSpecification(currentSpec);
         }
     }
 
-    updateDeveloperDescription(value: string, elementName?: string): void {
+    updateDeveloperDescription(value: string, index?: number): void {
+        if (!index) return;
         const currentSpec = this.stateService.editedSpecification;
         if (currentSpec && currentSpec.developmentSpecification && currentSpec.developmentSpecification.developerZooSpec && currentSpec.developmentSpecification.developerZooSpec.developerSpecs) {
-            const developer = currentSpec.developmentSpecification.developerZooSpec.developerSpecs.find((s) => s.name === elementName);
+            const developer = currentSpec.developmentSpecification.developerZooSpec.developerSpecs[index];
             if (!developer) return;
             developer.description = value;
             this.stateService.setEditedSpecification(currentSpec);
         }
     }
 
-    updateDeveloperSubtasks(value: string[], elementName?: string): void {
+    updateDeveloperSubtasks(value: string[], index?: number): void {
+        if (!index) return;
         const currentSpec = this.stateService.editedSpecification;
         if (currentSpec && currentSpec.developmentSpecification && currentSpec.developmentSpecification.developerZooSpec && currentSpec.developmentSpecification.developerZooSpec.developerSpecs) {
-            const developer = currentSpec.developmentSpecification.developerZooSpec.developerSpecs.find((s) => s.name === elementName);
+            const developer = currentSpec.developmentSpecification.developerZooSpec.developerSpecs[index];
             if (!developer) return;
             developer.subtasks = value;
             this.stateService.setEditedSpecification(currentSpec);

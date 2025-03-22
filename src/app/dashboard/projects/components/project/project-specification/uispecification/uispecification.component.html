@@ -36,7 +36,6 @@
                         <app-text-field
                             label="Name:"
                             [value]="service.name"
-                            [fieldId]="'appName'"
                         ></app-text-field>
                         <app-enum-field
                             label="Framework:"
@@ -108,7 +107,7 @@
         >
             <app-section-header title="Developers" [depth]="2">
                 <div
-                    *ngFor="let developerSpec of jobSpecification?.developmentSpecification?.developerZooSpec?.developerSpecs"
+                    *ngFor="let developerSpec of jobSpecification?.developmentSpecification?.developerZooSpec?.developerSpecs; let i = index"
                     class="flex flex-col space-y-1"
                 >
                     <app-text-field
@@ -118,6 +117,8 @@
                     <app-text-field
                         label="Developer Description:"
                         [value]="developerSpec.description"
+                        [fieldId]="'developerDescription'"
+                        [itemIndex]="i"
                     ></app-text-field>
                     <app-array-field
                         label="Developer Subtasks:"

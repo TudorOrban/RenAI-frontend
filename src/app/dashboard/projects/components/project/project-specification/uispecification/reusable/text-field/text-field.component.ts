@@ -13,7 +13,7 @@ export class TextFieldComponent {
     @Input() label!: string;
     @Input() value?: string;
     @Input() fieldId?: string;
-    @Input() itemName?: string; 
+    @Input() itemIndex?: number; 
 
     constructor(
         private readonly stateService: JobSpecificationStateService,
@@ -26,7 +26,7 @@ export class TextFieldComponent {
 
     updateValue(newValue: string | undefined): void {
         if (this.fieldId && newValue !== undefined) {
-            this.updaterService.updateField(this.fieldId, newValue, this.itemName);
+            this.updaterService.updateField(this.fieldId, newValue, this.itemIndex);
         }
     }
 }
