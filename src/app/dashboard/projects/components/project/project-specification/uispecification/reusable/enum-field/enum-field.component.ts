@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DataFormatterService } from '../../../../../../../../shared/common/services/data-formatter.service';
 
 @Component({
     selector: 'app-enum-field',
@@ -8,4 +9,8 @@ import { Component, Input } from '@angular/core';
 export class EnumFieldComponent<T> {
     @Input() label: string = "";
     @Input() value?: T;
+
+    constructor(
+        readonly dataFormatterService: DataFormatterService
+    ) {}
 }

@@ -1,6 +1,10 @@
 <div class="flex items-center space-x-4">
-    <h2 class="text-lg font-semibold">{{ title }}</h2>
+    <h2 class="font-semibold" [style.font-size]="getFontSizeByDepth()">{{ title }}</h2>
     <button class="text-gray-700 cursor-pointer" (click)="toggleExpanded()">
         <fa-icon [icon]="isExpanded() ? faCaretUp : faCaretDown"></fa-icon>
     </button>
+</div>
+
+<div *ngIf="isExpanded()" class="px-4 pt-4 flex flex-col space-y-4">
+    <ng-content></ng-content>
 </div>

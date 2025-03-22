@@ -7,6 +7,6 @@ import { FieldConfig } from '../../../../../../models/uiTypes';
     templateUrl: './text-field.component.html',
 })
 export class TextFieldComponent {
-    @Input() config: FieldConfig = { label: "", key: "", type: "text" };
+    @Input() label!: string;
     @Input() value?: string;
 }

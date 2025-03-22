@@ -1,20 +1,48 @@
-<div class="space-y-4">
-    <app-section-header [title]="appSpecConfig.title"></app-section-header>
-    <div *ngIf="true" class="space-y-4">
-        <app-text-field *ngFor="let field of appSpecConfig.fields" [config]="field" [value]="getNestedValue(jobSpecification?.appSpecification, field.key)"></app-text-field>
-        <app-array-field *ngIf="jobSpecification?.appSpecification?.functionalSpecifications" label="Functional Specifications" [items]="jobSpecification?.appSpecification?.functionalSpecifications ?? []"></app-array-field>
-        <app-section-header [title]="backendStackConfig.title"></app-section-header>
-        <div *ngIf="true">
-            <app-text-field *ngFor="let field of backendStackConfig.fields" [config]="field" [value]="getNestedValue(jobSpecification?.appSpecification?.backendStack, field.key)"></app-text-field>
-        </div>
-        <app-section-header [title]="frontendStackConfig.title"></app-section-header>
-        <div *ngIf="true">
-            <app-text-field *ngFor="let field of frontendStackConfig.fields" [config]="field" [value]="getNestedValue(jobSpecification?.appSpecification?.frontendStack, field.key)"></app-text-field>
-        </div>
-    </div>
+<div class="flex flex-col space-y-4">
+    <app-section-header [title]="'A. App Specification'" [depth]="0">
+        <app-text-field label="App Name:" [value]="jobSpecification?.appSpecification?.appName"></app-text-field>
+        <app-array-field label="Functional Specifications:" [items]="jobSpecification?.appSpecification?.functionalSpecifications ?? []"></app-array-field>
+        <app-enum-field label="App Type:" [value]="jobSpecification?.appSpecification?.appType"></app-enum-field>
+        <app-section-header title="Backend Stack" [depth]="1" [defaultIsExpanded]="false">
+            <app-enum-field label="Architecture:" [value]="jobSpecification?.appSpecification?.backendStack?.architecture"></app-enum-field>
+            <app-section-header title="Services" [depth]="2">
+                <div class="flex flex-wrap space-x-20">
+                    <div *ngFor="let service of jobSpecification?.appSpecification?.backendStack?.services" class="flex flex-col space-y-1 pb-2">
+                        <app-text-field label="Service Name:" [value]="service.name"></app-text-field>
+                        <app-enum-field label="Service Framework:" [value]="service.framework"></app-enum-field>
+                        <app-enum-field label="Service Database:" [value]="service.database"></app-enum-field>
+                    </div>
+                </div>
+            </app-section-header>
+        </app-section-header>
+        <app-section-header title="Frontend Stack" [depth]="1" [defaultIsExpanded]="false">
+            <app-enum-field label="Framework:" [value]="jobSpecification?.appSpecification?.frontendStack?.framework"></app-enum-field>
+        </app-section-header>
+    </app-section-header>
 
-    <app-section-header [title]="devSpecConfig.title"></app-section-header>
-    <div *ngIf="true" class="space-y-4">
+    <app-section-header [title]="'B. Development Specification'" [depth]="0">
+        <app-section-header title="Cost Speed Specification" [depth]="1">
+            <app-text-field label="Maximum Cost ($):" [value]="jobSpecification?.developmentSpecification?.costSpeedSpec?.maxCostDollars?.toString() ?? 'None'"></app-text-field>
+            <app-text-field label="Maximum Time (s):" [value]="jobSpecification?.developmentSpecification?.costSpeedSpec?.maxTimeSeconds?.toString() ?? 'None'"></app-text-field>
+        </app-section-header>
 
-    </div>
+        <app-section-header title="Infrastructure Specification" [depth]="1" [defaultIsExpanded]="false">
+            <app-section-header title="Nodes" [depth]="2">
+                <div *ngFor="let nodeSpec of jobSpecification?.developmentSpecification?.infrastructureSpec?.nodeSpecs" class="flex flex-col space-y-2">
+                    <app-enum-field label="Compute Type:" [value]="nodeSpec.computeType"></app-enum-field>
+                    <app-enum-field label="Node VM Size:" [value]="nodeSpec.vmSize"></app-enum-field>
+                </div>
+            </app-section-header>
+        </app-section-header>
+
+        <app-section-header title="Developer Zoo Specification" [depth]="1" [defaultIsExpanded]="false">
+            <app-section-header title="Developers" [depth]="2">
+                <div *ngFor="let developerSpec of jobSpecification?.developmentSpecification?.developerZooSpec?.developerSpecs" class="flex flex-col space-y-1">
+                    <app-text-field label="Developer Name:" [value]="developerSpec.name"></app-text-field>
+                    <app-text-field label="Developer Description:" [value]="developerSpec.description"></app-text-field>
+                    <app-array-field label="Developer Subtasks:" [items]="developerSpec.subtasks"></app-array-field>
+                </div>
+            </app-section-header>
+        </app-section-header>
+    </app-section-header>
 </div>
