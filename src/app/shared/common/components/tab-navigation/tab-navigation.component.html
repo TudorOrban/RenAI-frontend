@@ -1,0 +1,14 @@
+<div class="flex space-x-4 page-std-padding-x">
+    <button
+        *ngFor="let item of navigationItems"
+        (click)="selectItem(item)"
+        class="px-4 py-3 border-b text-gray-800 font-semibold"
+        [ngClass]="{
+            'border-gray-300': selectedItemValue !== item.value,
+            'border-b-2 border-blue-600': selectedItemValue === item.value,
+        }"
+    >
+        <fa-icon *ngIf="item.icon" [icon]="item.icon" class="mr-2"></fa-icon>
+        {{ item.label }}
+    </button>
+</div>

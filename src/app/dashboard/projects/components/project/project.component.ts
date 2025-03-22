@@ -8,10 +8,14 @@ import { UserDataDto } from "../../../../core/user/models/User";
 import { ProjectService } from "../../services/api/project.service";
 import { AuthService } from "../../../../core/user/services/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { UIItem } from "../../../../shared/types/uiTypes";
+import { TabNavigationComponent } from "../../../../shared/common/components/tab-navigation/tab-navigation.component";
+import { ProjectSpecificationComponent } from "./project-specification/project-specification.component";
+import { DevelopersComponent } from "./developers/developers.component";
 
 @Component({
     selector: "app-project",
-    imports: [CommonModule, FontAwesomeModule, ProjectHeaderComponent, ProjectOverviewComponent],
+    imports: [CommonModule, FontAwesomeModule, ProjectHeaderComponent, ProjectOverviewComponent, TabNavigationComponent, ProjectSpecificationComponent, DevelopersComponent],
     templateUrl: "./project.component.html",
 })
 export class ProjectComponent {
@@ -20,6 +24,18 @@ export class ProjectComponent {
     user?: UserDataDto;
 
     isProjectRead?: boolean = false;
+
+    navigationItems: UIItem[] = [
+        { label: "Overview", value: "overview" },
+        { label: "Specification", value: "specification" },
+        { label: "Developers", value: "developers" },
+    ];
+
+    selectedTab: UIItem = this.navigationItems[0];
+
+    selectTab(tab: UIItem): void {
+        this.selectedTab = tab;
+    }
 
     constructor(
         private readonly projectService: ProjectService,

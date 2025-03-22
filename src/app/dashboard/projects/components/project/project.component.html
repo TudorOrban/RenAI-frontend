@@ -2,6 +2,20 @@
     [project]="project"
 ></app-project-header>
 
-<app-project-overview
-    [project]="project"
-></app-project-overview>
+<app-tab-navigation
+    [navigationItems]="navigationItems"
+    [selectedItem]="selectedTab"
+    (itemSelected)="selectTab($event)"
+></app-tab-navigation>
+
+<div *ngIf="selectedTab.value === 'overview'">
+    <app-project-overview [project]="project"></app-project-overview>
+</div>
+
+<div *ngIf="selectedTab.value === 'specification'">
+    <app-project-specification [project]="project"></app-project-specification>
+</div>
+
+<div *ngIf="selectedTab.value === 'developers'">
+    <app-developers [project]="project"></app-developers>
+</div>
