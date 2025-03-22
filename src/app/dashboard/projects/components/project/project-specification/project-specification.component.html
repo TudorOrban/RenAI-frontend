@@ -8,7 +8,7 @@
             <button
                 *ngFor="let type of SpecificationRenderType | keyvalue"
                 [ngClass]="{
-                    'bg-gray-100': type.value == renderType()
+                    'bg-gray-100': type.value == getRenderType()
                 }"
                 class="px-4 py-2 h-10 border border-gray-300 shadow-sm cursor-pointer hover:bg-gray-100 text-sm font-semibold" 
                 (click)="selectRenderType(type.value)"
@@ -18,7 +18,7 @@
         </div>
 
         <div class="flex items-center space-x-2 ml-2">
-            <button *ngIf="!isEditModeOn()" class="standard-write-button space-x-2" (click)="startEditMode()">
+            <button *ngIf="!isEditModeOn()" class="standard-write-button space-x-2" (click)="this.editorService.startEditMode()">
                 <fa-icon [icon]="faEdit"></fa-icon>
                 <p>Edit Specification</p>
             </button>
@@ -33,13 +33,13 @@
     </div>
 </div>
 
-<div *ngIf="renderType() === SpecificationRenderType.UI">
+<div *ngIf="getRenderType() === SpecificationRenderType.UI">
     <app-uispecification
         [jobSpecification]="project?.jobSpecification"
     ></app-uispecification>
 </div>
 
-<div *ngIf="renderType() === SpecificationRenderType.JSON">
+<div *ngIf="getRenderType() === SpecificationRenderType.JSON">
     <app-json-editor
     ></app-json-editor>
 </div>

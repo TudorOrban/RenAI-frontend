@@ -1,5 +1,5 @@
-import { Component, ElementRef, Input, OnChanges, signal, SimpleChanges, ViewChild } from '@angular/core';
-import { JobSpecification, ProjectDataDto } from '../../../models/Project';
+import { Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { ProjectDataDto } from '../../../models/Project';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpecificationRenderType } from '../../../models/uiTypes';
@@ -7,6 +7,7 @@ import { faEdit, faSave } from '@fortawesome/free-solid-svg-icons';
 import { UISpecificationComponent } from "./uispecification/uispecification.component";
 import { JsonEditorComponent } from "./json-editor/json-editor.component";
 import { JobSpecificationEditorService } from '../../../services/ui/job-specification-editor.service';
+import { JobSpecificationStateService } from '../../../services/ui/job-specification-state.service';
 
 @Component({
     selector: 'app-project-specification',
@@ -17,38 +18,31 @@ export class ProjectSpecificationComponent implements OnChanges {
     @Input() project?: ProjectDataDto;
     @ViewChild("jsonEditorContainer") jsonEditorContainer?: ElementRef;
 
-    jobSpecification?: JobSpecification;
-    renderType = signal<SpecificationRenderType>(SpecificationRenderType.UI);
-
     constructor(
+        private readonly stateService: JobSpecificationStateService,
         readonly editorService: JobSpecificationEditorService
     ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['project'] && this.project) {
             this.editorService.setProjectData(this.project);
-            this.editorService.jobSpecification$.subscribe((jobSpecification) => {
-                this.jobSpecification = jobSpecification;
-            });
         }
     }
 
     selectRenderType(renderType: SpecificationRenderType): void {
-        if (this.renderType() === renderType) return;
-        if (this.isEditModeOn()) return;
-        this.renderType.set(renderType);
+        this.stateService.setRenderType(renderType);
+    }
+
+    getRenderType(): SpecificationRenderType {
+        return this.stateService.renderType;
     }
     
     isEditModeOn(): boolean {
-        return this.editorService.isEditModeOn();
-    }
-
-    startEditMode(): void {
-        this.editorService.startEditMode();
+        return this.stateService.isEditModeOn;
     }
 
     confirmEdit(): void {
-        this.editorService.confirmEdit(this.renderType()).subscribe({
+        this.editorService.confirmEdit(this.stateService.renderType).subscribe({
             next: () => {},
             error: (error) => {
                 console.log('Error updating Job Specification:', error);
@@ -57,7 +51,7 @@ export class ProjectSpecificationComponent implements OnChanges {
     }
 
     cancelEdit(): void {
-        this.editorService.cancelEdit(this.project as ProjectDataDto);
+        this.editorService.cancelEdit(this.project);
     }
 
     SpecificationRenderType = SpecificationRenderType;

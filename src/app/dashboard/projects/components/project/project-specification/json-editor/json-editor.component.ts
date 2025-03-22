@@ -1,7 +1,8 @@
 import { Component, effect, ElementRef, OnDestroy, ViewChild } from "@angular/core";
 import JSONEditor from "jsoneditor";
 import { JobSpecificationEditorService } from "../../../../services/ui/job-specification-editor.service";
-import { Subscription } from "rxjs";
+import { combineLatest, distinctUntilChanged, map, Subscription } from "rxjs";
+import { JobSpecificationStateService } from "../../../../services/ui/job-specification-state.service";
 
 @Component({
     selector: "app-json-editor",
@@ -10,33 +11,31 @@ import { Subscription } from "rxjs";
 })
 export class JsonEditorComponent implements OnDestroy {
     @ViewChild("jsonEditorContainer") jsonEditorContainer?: ElementRef;
-
+    
     private jsonEditor?: JSONEditor;
     private jobSpecSubscription: Subscription;
 
     constructor(
+        private readonly stateService: JobSpecificationStateService,
         private readonly editorService: JobSpecificationEditorService
     ) {
-        this.jobSpecSubscription = this.editorService.jobSpecification$.subscribe(() => {
-            this.initializeEditor();
+        this.jobSpecSubscription = combineLatest([
+            this.stateService.state$.pipe(map(state => state.editingState.jsonValue), distinctUntilChanged()),
+            this.stateService.state$.pipe(map(state => state.editingState.isEditModeOn), distinctUntilChanged())
+        ]).subscribe(() => {
+            this.syncEditor();
         });
-
-        effect(() => {
-            this.editorService.isEditModeOn();             
-            this.jsonEditor?.setMode(this.editorService.isEditModeOn() ? "code" : "view");
-        });
-    }
-
-    ngAfterViewInit(): void {
-        this.initializeEditor();
     }
 
     ngOnDestroy(): void {
         this.jobSpecSubscription.unsubscribe();
+        if (this.jsonEditor) {
+            this.jsonEditor.destroy();
+        }
     }
 
-    private initializeEditor(): void {
-        if (!this.jsonEditorContainer || !this.editorService.jsonValue()) {
+    private syncEditor(): void {
+        if (!this.jsonEditorContainer || !this.stateService.jsonValue) {
             if (this.jsonEditor) {
                 this.jsonEditor.destroy();
                 this.jsonEditor = undefined;
@@ -44,17 +43,21 @@ export class JsonEditorComponent implements OnDestroy {
             return;
         }
 
-        try {
-            if (this.jsonEditor) {
-                this.jsonEditor.destroy();
+        if (!this.jsonEditor) {
+            try {
+                this.jsonEditor = new JSONEditor(this.jsonEditorContainer.nativeElement, {
+                    mode: this.stateService.isEditModeOn ? "code" : "view",
+                    onChange: () => this.handleJsonChange(),
+                });
+                this.jsonEditor.setText(this.stateService.jsonValue);
+            } catch (error) {
+                console.error("Error initializing JSONEditor:", error);
             }
-            this.jsonEditor = new JSONEditor(this.jsonEditorContainer.nativeElement, {
-                mode: this.editorService.isEditModeOn() ? "code" : "view",
-                onChange: () => this.handleJsonChange(),
-            });
-            this.jsonEditor.setText(this.editorService.jsonValue() ?? "");
-        } catch (error) {
-            console.error("Error initializing JSONEditor:", error);
+        } else {
+            this.jsonEditor.setMode(this.stateService.isEditModeOn ? "code" : "view");
+            if (this.jsonEditor.getText() !== this.stateService.jsonValue) {
+                this.jsonEditor.setText(this.stateService.jsonValue ?? "");
+            }
         }
     }
 

@@ -3,28 +3,27 @@ import { BehaviorSubject, Observable, tap } from "rxjs";
 import { JobSpecification, ProjectDataDto, UpdateProjectDto } from "../../models/Project";
 import { SpecificationRenderType } from "../../models/uiTypes";
 import { ProjectService } from "../api/project.service";
+import { JobSpecificationStateService } from "./job-specification-state.service";
 
 @Injectable({
     providedIn: "root"
 })
 export class JobSpecificationEditorService {
-    private jobSpecificationSubject = new BehaviorSubject<JobSpecification | undefined>(undefined);
-    jobSpecification$ = this.jobSpecificationSubject.asObservable();
-    isEditModeOn = signal(false);
-    jsonValue = signal<string | undefined>(undefined);
-    jsonStringFromEditor = signal<string | undefined>(undefined);
-
     private updateProjectDto: UpdateProjectDto = {
         id: 0,
         userId: 0,
         name: '',
     };
 
-    constructor(private readonly projectService: ProjectService) {}
+    constructor(
+        private readonly projectService: ProjectService,
+        private readonly stateService: JobSpecificationStateService,
+    ) {}
 
     setProjectData(project: ProjectDataDto): void {
         this.setProjectDto(project);
-        this.updateJobSpecification(project.jobSpecification);
+        this.stateService.setEditedSpecification(project.jobSpecification);
+        this.updateJsonValue(project.jobSpecification);
     }
 
     setProjectDto(project: ProjectDataDto): void {
@@ -34,17 +33,12 @@ export class JobSpecificationEditorService {
         this.updateProjectDto.description = project.description;
     }
 
-    updateJobSpecification(jobSpecification?: JobSpecification): void {
-        this.updateJsonValue(jobSpecification);
-        this.jobSpecificationSubject.next(jobSpecification);
-    }
-
     private updateJsonValue(jobSpecification?: JobSpecification): void {
-        this.jsonValue.set(JSON.stringify(jobSpecification, null, 4));
+        this.stateService.setJsonValue(JSON.stringify(jobSpecification, null, 4));
     }
 
     startEditMode(): void {
-        this.isEditModeOn.set(true);
+        this.stateService.setIsEditModeOn(true);
     }
 
     confirmEdit(renderType: SpecificationRenderType): Observable<ProjectDataDto> {
@@ -58,8 +52,9 @@ export class JobSpecificationEditorService {
     private handleJSONEdit(): Observable<ProjectDataDto> {
         let jobSpecification: JobSpecification | undefined;
         try {
-            jobSpecification = JSON.parse(this.jsonStringFromEditor() || "");
+            jobSpecification = JSON.parse(this.stateService.jsonStringFromEditor ?? "");
         } catch (error) {
+            console.log("JSON:", this.stateService.jsonStringFromEditor);
             console.error("Invalid JSON:", error);
             return new Observable<ProjectDataDto>();
         }
@@ -74,23 +69,34 @@ export class JobSpecificationEditorService {
 
         return this.projectService.updateProject(this.updateProjectDto).pipe(
             tap((data) => {
-                this.updateJobSpecification(data.jobSpecification);
-                this.isEditModeOn.set(false);
+                this.stateService.setEditedSpecification(data.jobSpecification);
+                this.stateService.setIsEditModeOn(false);
+                this.updateJsonValue(data.jobSpecification);
             })
         );
     }
 
     private handleUIEdit(): Observable<ProjectDataDto> {
-        // Implement UI edit logic here
-        return new Observable<ProjectDataDto>();
+        this.updateProjectDto.jobSpecification = this.stateService.editedSpecification;
+        this.updateProjectDto.updateSpec = false;
+
+        return this.projectService.updateProject(this.updateProjectDto).pipe(
+            tap((data) => {
+                this.stateService.setEditedSpecification(data.jobSpecification);
+                this.stateService.setIsEditModeOn(false);
+                this.updateJsonValue(data.jobSpecification);
+            })
+        );
     }
 
-    cancelEdit(project: ProjectDataDto): void {
-        this.isEditModeOn.set(false);
+    cancelEdit(project?: ProjectDataDto): void {
+        this.stateService.setIsEditModeOn(false);
+        if (!project) return;
         this.setProjectData(project);
     }
 
     onJsonChange(jsonString: string): void {
-        this.jsonStringFromEditor.set(jsonString);
+        this.stateService.setJsonValue(jsonString);
+        this.stateService.setJsonStringFromEditor(jsonString);
     }
 }
