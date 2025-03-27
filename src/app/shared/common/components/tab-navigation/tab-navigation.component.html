@@ -2,7 +2,7 @@
     <button
         *ngFor="let item of navigationItems"
         (click)="selectItem(item)"
-        class="px-4 py-3 border-b text-gray-800 font-semibold"
+        class="px-4 py-3 border-b text-gray-800 font-semibold cursor-pointer hover:border-b-2 hover:border-blue-600"
         [ngClass]="{
             'border-gray-300': selectedItemValue !== item.value,
             'border-b-2 border-blue-600': selectedItemValue === item.value,

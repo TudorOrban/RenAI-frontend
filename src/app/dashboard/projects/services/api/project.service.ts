@@ -19,8 +19,8 @@ export class ProjectService {
         return this.http.get<PaginatedResults<ProjectSearchDto>>(`${this.apiUrl}/user/${userId}`, { params: { ...searchParams } });
     }
 
-    getProject(id: number): Observable<ProjectDataDto> {
-        return this.http.get<ProjectDataDto>(`${this.apiUrl}/${id}`);
+    getProject(id: number, includeDevelopers?: boolean): Observable<ProjectDataDto> {
+        return this.http.get<ProjectDataDto>(`${this.apiUrl}/${id}`, { params: { includeDevelopers: includeDevelopers ?? false } });
     }
 
     createProject(projectDto: CreateProjectDto): Observable<ProjectDataDto> {

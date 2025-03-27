@@ -69,7 +69,7 @@ export class JobSpecificationEditorService {
         }
 
         this.updateProjectDto.jobSpecification = jobSpecification;
-        this.updateProjectDto.updateSpec = false;
+        this.updateProjectDto.updateSpec = true;
 
         return this.projectService.updateProject(this.updateProjectDto).pipe(
             tap((data) => {
@@ -80,7 +80,7 @@ export class JobSpecificationEditorService {
 
     private handleUIEdit(): Observable<ProjectDataDto> {
         this.updateProjectDto.jobSpecification = this.stateService.editedSpecification;
-        this.updateProjectDto.updateSpec = false;
+        this.updateProjectDto.updateSpec = true;
 
         return this.projectService.updateProject(this.updateProjectDto).pipe(
             tap((data) => {

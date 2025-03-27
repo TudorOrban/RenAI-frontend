@@ -64,9 +64,10 @@ export class ProjectComponent {
             return;
         }
 
-        this.projectService.getProject(this.projectId).subscribe(
+        this.projectService.getProject(this.projectId, true).subscribe(
             (data) => {
                 this.project = data;
+                console.log("SA", this.project.developers);
             },
             (error) => {
                 console.error("Error: ", error);

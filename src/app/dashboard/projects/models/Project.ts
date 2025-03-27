@@ -1,3 +1,4 @@
+import { RenaiDeveloperSearchDto } from "../../developers/models/Developer";
 
 export interface ProjectSearchDto {
     id: number;
@@ -10,6 +11,7 @@ export interface ProjectSearchDto {
 
 export interface ProjectDataDto extends ProjectSearchDto {
     jobSpecification?: JobSpecification;
+    developers?: RenaiDeveloperSearchDto[];
 }
 
 export interface CreateProjectDto {
