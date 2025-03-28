@@ -1,4 +1,4 @@
-import { RenaiDeveloperSearchDto } from "../../developers/models/Developer";
+import { RenaiDeveloperSearchDto } from "../../developers/models/RenaiDeveloper";
 
 export interface ProjectSearchDto {
     id: number;

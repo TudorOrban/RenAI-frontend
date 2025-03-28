@@ -67,7 +67,7 @@ export class ProjectComponent {
         this.projectService.getProject(this.projectId, true).subscribe(
             (data) => {
                 this.project = data;
-                console.log("SA", this.project.developers);
+                console.log("SA", this.project);
             },
             (error) => {
                 console.error("Error: ", error);
