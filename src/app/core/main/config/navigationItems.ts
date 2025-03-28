@@ -1,4 +1,4 @@
-import { faDiagramProject, faGear, faGlobe, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faDiagramProject, faGear, faGlobe, faRobot, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { UIItem } from "../../../shared/types/uiTypes";
 
 export const headerItems: UIItem[] = [
@@ -42,6 +42,12 @@ export const sidebarItems: UIItem[] = [
         value: "projects",
         link: "/dashboard/projects",
         icon: faDiagramProject
+    },
+    {
+        label: "Developers",
+        value: "developers",
+        link: "/dashboard/developers",
+        icon: faRobot,
     },
     {
         label: "Settings",

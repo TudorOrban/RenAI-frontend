@@ -4,12 +4,13 @@ import { RenaiDeveloperService } from '../../../../developers/services/renai-dev
 import { DeveloperStatus, RenaiDeveloperSearchDto } from '../../../../developers/models/RenaiDeveloper';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPause, faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeftRotate, faPause, faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
 import { DeveloperStatusComponent } from "./developer-status/developer-status.component";
+import { SearchInputComponent } from "../../../../../shared/common/components/search-input/search-input.component";
 
 @Component({
     selector: 'app-developers',
-    imports: [CommonModule, FontAwesomeModule, DeveloperStatusComponent],
+    imports: [CommonModule, FontAwesomeModule, DeveloperStatusComponent, SearchInputComponent],
     templateUrl: './developers.component.html',
 })
 export class DevelopersComponent implements OnChanges {
@@ -27,7 +28,7 @@ export class DevelopersComponent implements OnChanges {
         }
     }
 
-    private loadDevelopers(): void {
+    loadDevelopers(): void {
         if (!this.project?.id) {
             return;
         }
@@ -80,6 +81,7 @@ export class DevelopersComponent implements OnChanges {
     }
 
     DeveloperStatus = DeveloperStatus;
+    faArrowLeftRotate = faArrowLeftRotate;
     faPlay = faPlay;
     faPause = faPause;
     faStop = faStop;

@@ -18,7 +18,11 @@ export class RenaiDeveloperService {
         return this.http.get<RenaiDeveloperSearchDto[]>(`${this.apiUrl}/project/${projectId}`);
     }
 
-    getDeveloperId(id: number): Observable<RenaiDeveloperSearchDto> {
+    getDevelopersByUserId(userId: number): Observable<RenaiDeveloperSearchDto[]> {
+        return this.http.get<RenaiDeveloperSearchDto[]>(`${this.apiUrl}/user/${userId}`);
+    }
+
+    getDeveloperById(id: number): Observable<RenaiDeveloperSearchDto> {
         return this.http.get<RenaiDeveloperSearchDto>(`${this.apiUrl}/${id}`);
     }
 
