@@ -1,1 +1,12 @@
-<p>developer-overview works!</p>
+<div class="page-std-padding-x page-std-padding-y">
+    <div class="space-y-4">
+        <div class="flex items-center space-x-2">
+            <div class="font-semibold">Created At:</div>
+            <p class="text-gray-700">{{ dataFormatterService.formatDate(developer?.createdAt) }}</p>
+        </div>
+        <div class="flex items-center space-x-2">
+            <div class="font-semibold">Last Modified:</div>
+            <p class="text-gray-700">{{ dataFormatterService.formatDate(developer?.updatedAt) }}</p>
+        </div>
+    </div>
+</div>

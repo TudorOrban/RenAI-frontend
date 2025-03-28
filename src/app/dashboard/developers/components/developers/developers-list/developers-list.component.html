@@ -10,7 +10,7 @@
             
             <button
                 *ngIf="developer.developerState.status == DeveloperStatus.RUNNING"
-                (click)="pauseDeveloper(developer.id)"
+                (click)="pauseDeveloper($event, developer.id)"
                 class="standard-action-button flex items-center justify-center w-10"
             >
                 
@@ -18,7 +18,7 @@
             </button>
             <button
                 *ngIf="developer.developerState.status == DeveloperStatus.PAUSED"
-                (click)="resumeDeveloper(developer.id)"
+                (click)="resumeDeveloper($event, developer.id)"
                 class="standard-action-button flex items-center justify-center w-10"
             >
                 
@@ -26,7 +26,7 @@
             </button>
             <button
                 *ngIf="developer.developerState.status == DeveloperStatus.RUNNING"
-                (click)="stopDeveloper(developer.id)"
+                (click)="stopDeveloper($event, developer.id)"
                 class="standard-action-button flex items-center justify-center w-10"
             >
                 

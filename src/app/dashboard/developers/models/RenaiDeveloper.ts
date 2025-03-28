@@ -33,7 +33,7 @@ export interface TaskState {
 }
 
 export interface TaskEvent {
-    eventType: EventType;
+    eventType: TaskEventType;
     timestamp: Date;
     llmResponse: string;
     commandRequest: string;

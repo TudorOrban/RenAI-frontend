@@ -28,7 +28,7 @@ export class RenaiDeveloperService {
 
     // Lifecycle
     getState(id: number): Observable<TaskState> {
-        return this.http.get<TaskState>(`${this.apiUrl}/${id}`);
+        return this.http.get<TaskState>(`${this.apiUrl}/${id}/state`);
     }
 
     pauseDeveloper(id: number): Observable<LifecycleActionResponseDto> {

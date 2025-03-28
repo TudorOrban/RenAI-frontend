@@ -1,1 +1,25 @@
-<p>developer-task-state works!</p>
+<div class="page-std-padding-x page-std-padding-y">
+    
+    <div *ngIf="state?.taskEvents" class="">
+        <div class="py-4 text-lg font-semibold">
+            Task Events ({{ state?.taskEvents?.length ?? 0 }})
+        </div>
+
+        <div 
+            *ngFor="let event of state?.taskEvents"
+        >
+            <div
+                *ngIf="event.eventType !== TaskEventType.LLM_RESPONSE"
+                class="flex items-center space-x-8"
+            >
+                <div>
+                    {{ dataFormatterService.formatDate(event.timestamp) }}
+                </div>
+
+                <div>
+                    {{ dataFormatterService.formatEnumString(event.eventType) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

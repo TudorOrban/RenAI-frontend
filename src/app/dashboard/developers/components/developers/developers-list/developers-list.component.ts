@@ -25,7 +25,9 @@ export class DevelopersListComponent {
         this.router.navigate([`dashboard/developers/${developerId}`]);
     }
 
-    pauseDeveloper(developerId: number): void {
+    pauseDeveloper(event: Event, developerId: number): void {
+        event.stopPropagation();
+
         this.developerService.pauseDeveloper(developerId).subscribe({
             next: (data) => {
                 console.log("Success");
@@ -37,7 +39,9 @@ export class DevelopersListComponent {
         })
     }
 
-    resumeDeveloper(developerId: number): void {
+    resumeDeveloper(event: Event, developerId: number): void {
+        event.stopPropagation();
+
         this.developerService.resumeDeveloper(developerId).subscribe({
             next: (data) => {
                 console.log("Success");
@@ -49,7 +53,9 @@ export class DevelopersListComponent {
         })
     }
 
-    stopDeveloper(developerId: number): void {
+    stopDeveloper(event: Event, developerId: number): void {
+        event.stopPropagation();
+
         this.developerService.stopDeveloper(developerId).subscribe({
             next: (data) => {
                 console.log("Success");
