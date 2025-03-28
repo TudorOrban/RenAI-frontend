@@ -40,16 +40,16 @@ export class ProjectsComponent implements OnInit {
     searchProjects(): void {
         if (!this.currentUserId) return;
 
-        this.projectService.getProjectsByUserId(this.currentUserId, this.searchParams).subscribe(
-            (data) => {
+        this.projectService.getProjectsByUserId(this.currentUserId, this.searchParams).subscribe({
+            next: (data) => {
                 console.log("Data:", data);
                 this.projects = data.results;
                 this.totalCount = data?.totalCount;
             },
-            (error) => {
+            error: (error) => {
                 console.log("Error:", error);
             }
-        );
+        });
     }
 
     faPlus = faPlus;

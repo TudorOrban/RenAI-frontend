@@ -9,6 +9,7 @@ import { SettingsComponent } from './dashboard/settings/components/settings/sett
 import { ProjectComponent } from './dashboard/projects/components/project/project.component';
 import { CreateProjectComponent } from './dashboard/projects/components/create-project/create-project.component';
 import { DevelopersComponent } from './dashboard/developers/components/developers/developers.component';
+import { DeveloperComponent } from './dashboard/developers/components/developer/developer.component';
 
 export const routes: Routes = [
     {
@@ -46,6 +47,10 @@ export const routes: Routes = [
     {
         path: "dashboard/developers",
         component: DevelopersComponent,
+    },
+    {
+        path: "dashboard/developers/:developerId",
+        component: DeveloperComponent
     },
     {
         path: "dashboard/settings",

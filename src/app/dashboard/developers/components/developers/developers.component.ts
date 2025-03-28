@@ -30,12 +30,12 @@ export class DevelopersComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.authService.getCurrentUser().subscribe(
-            (data) => {
+        this.authService.getCurrentUser().subscribe({
+            next: (data) => {
                 this.currentUserId = data?.id;
                 this.loadDevelopers();
             }
-        );
+        });
     }
 
 

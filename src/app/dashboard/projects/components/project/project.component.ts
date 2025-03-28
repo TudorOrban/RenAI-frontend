@@ -45,17 +45,19 @@ export class ProjectComponent {
     ) {}
 
     ngOnInit(): void {
-        this.authService.getCurrentUser().subscribe((user) => {
-            if (!user) {
-                return;
+        this.authService.getCurrentUser().subscribe({
+            next: (user) => {
+                if (!user) {
+                    return;
+                }
+                this.user = user;
+    
+                this.route.paramMap.subscribe((params) => {
+                    this.projectId = Number(params.get("projectId"));
+    
+                    this.loadProject();
+                });
             }
-            this.user = user;
-
-            this.route.paramMap.subscribe((params) => {
-                this.projectId = Number(params.get("projectId"));
-
-                this.loadProject();
-            });
         });
     }
 
@@ -64,14 +66,14 @@ export class ProjectComponent {
             return;
         }
 
-        this.projectService.getProject(this.projectId, true).subscribe(
-            (data) => {
+        this.projectService.getProject(this.projectId, true).subscribe({
+            next: (data) => {
                 this.project = data;
                 console.log("SA", this.project);
             },
-            (error) => {
+            error: (error) => {
                 console.error("Error: ", error);
             }
-        );
+        });
     }
 }

@@ -22,11 +22,11 @@ export class HeaderComponent {
     constructor(
         private authService: AuthService
     ) {
-        this.authService.getCurrentUser().subscribe(
-            (data) => {
+        this.authService.getCurrentUser().subscribe({
+            next: (data) => {
                 this.isLoggedIn.set(!!data);
             }
-        );
+        });
     }
 
     toggleUserbar(): void {

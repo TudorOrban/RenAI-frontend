@@ -1,0 +1,17 @@
+<div class="flex justify-between w-full page-std-padding-x page-std-padding-y">
+    <div class="flex flex-col space-y-4">
+        <div class="text-2xl font-semibold">
+            {{ developer?.name }}
+        </div>
+    
+        <div class="text-gray-800">
+            {{ developer?.description }}
+        </div>
+    </div>
+
+    <div>
+        <button class="standard-action-button">
+            <fa-icon [icon]="faEllipsis"></fa-icon>
+        </button>
+    </div>
+</div>

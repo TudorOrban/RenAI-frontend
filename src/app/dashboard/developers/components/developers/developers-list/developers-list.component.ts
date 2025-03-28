@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DeveloperStatusComponent } from "../../../../projects/components/project/developers/developer-status/developer-status.component";
 import { faArrowLeftRotate, faPause, faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-developers-list',
@@ -17,7 +18,12 @@ export class DevelopersListComponent {
 
     constructor(
         private readonly developerService: RenaiDeveloperService,
+        private readonly router: Router
     ) {}
+
+    navigateTo(developerId: number): void {
+        this.router.navigate([`dashboard/developers/${developerId}`]);
+    }
 
     pauseDeveloper(developerId: number): void {
         this.developerService.pauseDeveloper(developerId).subscribe({

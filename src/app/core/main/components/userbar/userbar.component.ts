@@ -16,10 +16,10 @@ export class UserbarComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.authService.getCurrentUser().subscribe(
-            (data) => {
+        this.authService.getCurrentUser().subscribe({
+            next: (data) => {
                 this.currentUser = data ?? undefined;
             }
-        );
+        });
     }
 }
