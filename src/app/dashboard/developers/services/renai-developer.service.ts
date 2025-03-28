@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../../enviroments/environment-dev";
 import { Observable } from "rxjs";
-import { RenaiDeveloperSearchDto, TaskState } from "../models/RenaiDeveloper";
+import { LifecycleActionResponseDto, RenaiDeveloperSearchDto, TaskState } from "../models/RenaiDeveloper";
 
 @Injectable({
     providedIn: "root"
@@ -27,15 +27,15 @@ export class RenaiDeveloperService {
         return this.http.get<TaskState>(`${this.apiUrl}/${id}`);
     }
 
-    pauseDeveloper(id: number): Observable<string> {
-        return this.http.put<string>(`${this.apiUrl}/${id}/pause`, null);
+    pauseDeveloper(id: number): Observable<LifecycleActionResponseDto> {
+        return this.http.put<LifecycleActionResponseDto>(`${this.apiUrl}/${id}/pause`, null);
     }
 
-    resumeDeveloper(id: number): Observable<string> {
-        return this.http.put<string>(`${this.apiUrl}/${id}/resume`, null);
+    resumeDeveloper(id: number): Observable<LifecycleActionResponseDto> {
+        return this.http.put<LifecycleActionResponseDto>(`${this.apiUrl}/${id}/resume`, null);
     }
 
-    stopDeveloper(id: number): Observable<string> {
-        return this.http.put<string>(`${this.apiUrl}/${id}/stop`, null);
+    stopDeveloper(id: number): Observable<LifecycleActionResponseDto> {
+        return this.http.put<LifecycleActionResponseDto>(`${this.apiUrl}/${id}/stop`, null);
     }
 }

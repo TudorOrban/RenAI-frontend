@@ -1,0 +1,12 @@
+<div class="flex items-center">
+    <div class="w-4 h-4 rounded-full" [ngClass]="{
+        'bg-green-600': status === DeveloperStatus.RUNNING,
+        'bg-red-600': status === DeveloperStatus.FAILED,
+        'bg-gray-400': status === DeveloperStatus.PAUSED || status === DeveloperStatus.STOPPED,
+        'animate-spin border-4 border-gray-400 border-t-transparent': status === DeveloperStatus.CREATING || status === DeveloperStatus.DESTROYING
+    }">
+        <i *ngIf="status === DeveloperStatus.PAUSED" class="fa fa-pause text-gray-600"></i>
+        <i *ngIf="status === DeveloperStatus.STOPPED" class="fa fa-stop text-black"></i>
+    </div>
+    <span class="ml-2">{{ formatStatus(status) }}</span>
+</div>

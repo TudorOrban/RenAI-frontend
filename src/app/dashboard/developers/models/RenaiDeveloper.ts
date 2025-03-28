@@ -60,3 +60,7 @@ export enum ResponseType {
     SUCCESS = "SUCCESS",
     ERROR = "ERROR"
 }
+
+export interface LifecycleActionResponseDto {
+    message: string;
+}

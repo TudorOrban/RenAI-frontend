@@ -5,10 +5,11 @@ import { DeveloperStatus, RenaiDeveloperSearchDto } from '../../../../developers
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPause, faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
+import { DeveloperStatusComponent } from "./developer-status/developer-status.component";
 
 @Component({
     selector: 'app-developers',
-    imports: [CommonModule, FontAwesomeModule],
+    imports: [CommonModule, FontAwesomeModule, DeveloperStatusComponent],
     templateUrl: './developers.component.html',
 })
 export class DevelopersComponent implements OnChanges {
@@ -37,9 +38,45 @@ export class DevelopersComponent implements OnChanges {
                 this.developers = data;
             },
             error: (error) => {
-                console.log("Error fetching developers: ", error.message);
+                console.error("Error fetching developers: ", error.message);
             }
         });
+    }
+
+    pauseDeveloper(developerId: number): void {
+        this.developerService.pauseDeveloper(developerId).subscribe({
+            next: (data) => {
+                console.log("Success");
+                this.loadDevelopers();
+            },
+            error: (error) => {
+                console.error("Error pausing developer: ", error.message);
+            }
+        })
+    }
+
+    resumeDeveloper(developerId: number): void {
+        this.developerService.resumeDeveloper(developerId).subscribe({
+            next: (data) => {
+                console.log("Success");
+                this.loadDevelopers();
+            },
+            error: (error) => {
+                console.error("Error pausing developer: ", error.message);
+            }
+        })
+    }
+
+    stopDeveloper(developerId: number): void {
+        this.developerService.stopDeveloper(developerId).subscribe({
+            next: (data) => {
+                console.log("Success");
+                this.loadDevelopers();
+            },
+            error: (error) => {
+                console.error("Error pausing developer: ", error.message);
+            }
+        })
     }
 
     DeveloperStatus = DeveloperStatus;
