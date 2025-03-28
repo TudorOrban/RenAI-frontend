@@ -13,5 +13,8 @@ export const pagesSearchConfiguration: PagesSearchConfiguration = {
         "/dashboard/projects": {
             sortOptions: standardSortOptions,
         },
+        "/dashboard/developers": {
+            sortOptions: standardSortOptions
+        }
     },
 };

@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { environment } from "../../../../enviroments/environment-dev";
+import { environment } from "../../../../../enviroments/environment-dev";
 import { Observable } from "rxjs";
-import { LifecycleActionResponseDto, RenaiDeveloperSearchDto, TaskState } from "../models/RenaiDeveloper";
+import { LifecycleActionResponseDto, RenaiDeveloperSearchDto, TaskState } from "../../models/RenaiDeveloper";
 
 @Injectable({
     providedIn: "root"

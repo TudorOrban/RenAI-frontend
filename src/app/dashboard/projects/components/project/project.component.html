@@ -1,11 +1,13 @@
 <app-project-header
     [project]="project"
+    class="bg-gray-50"
 ></app-project-header>
 
 <app-tab-navigation
     [navigationItems]="navigationItems"
     [selectedItemValue]="selectedTab.value"
     (itemSelected)="selectTab($event)"
+    class="bg-gray-50"
 ></app-tab-navigation>
 
 <div *ngIf="selectedTab.value === 'overview'">

@@ -1,1 +1,46 @@
-<p>developers-list works!</p>
+
+<div class="flex flex-col page-std-padding-y">
+    <div *ngFor="let developer of developers" class="flex items-center justify-between w-full page-std-padding-x py-4 border-b border-gray-300">
+        <div class="text-lg font-semibold">
+            {{ developer?.name }}
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <app-developer-status [status]="developer?.developerState?.status"></app-developer-status>
+            
+            <button
+                *ngIf="developer.developerState.status == DeveloperStatus.RUNNING"
+                (click)="pauseDeveloper(developer.id)"
+                class="standard-action-button flex items-center justify-center w-10"
+            >
+                
+                <fa-icon [icon]="faPause"></fa-icon>
+            </button>
+            <button
+                *ngIf="developer.developerState.status == DeveloperStatus.PAUSED"
+                (click)="resumeDeveloper(developer.id)"
+                class="standard-action-button flex items-center justify-center w-10"
+            >
+                
+                <fa-icon [icon]="faPlay"></fa-icon>
+            </button>
+            <button
+                *ngIf="developer.developerState.status == DeveloperStatus.RUNNING"
+                (click)="stopDeveloper(developer.id)"
+                class="standard-action-button flex items-center justify-center w-10"
+            >
+                
+                <fa-icon [icon]="faStop"></fa-icon>
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="(developers?.length ?? -1) === 0" class="text-center w-full py-40 space-y-4 font-semibold">
+        <div class="text-xl">
+            No Developers found. 
+        </div>
+        <div class="text-lg text-gray-800">
+            Modify the project Specification to create developers.
+        </div>
+    </div>
+</div>

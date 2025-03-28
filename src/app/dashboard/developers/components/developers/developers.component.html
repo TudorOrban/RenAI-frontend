@@ -1,7 +1,10 @@
 <app-developers-header
-
+    [searchParams]="searchParams"
+    [includeTitle]="true"
+    (searchParamsChanged)="searchDevelopers()"
 ></app-developers-header>
 
 <app-developers-list
-
+    [developers]="searchedDevelopers"
+    (onDeveloperReload)="loadDevelopers()"
 ></app-developers-list>

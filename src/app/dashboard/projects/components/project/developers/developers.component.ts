@@ -1,25 +1,32 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ProjectDataDto } from '../../../models/Project';
-import { RenaiDeveloperService } from '../../../../developers/services/renai-developer.service';
-import { DeveloperStatus, RenaiDeveloperSearchDto } from '../../../../developers/models/RenaiDeveloper';
+import { RenaiDeveloperService } from '../../../../developers/services/api/renai-developer.service';
+import { RenaiDeveloperSearchDto } from '../../../../developers/models/RenaiDeveloper';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faArrowLeftRotate, faPause, faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
-import { DeveloperStatusComponent } from "./developer-status/developer-status.component";
-import { SearchInputComponent } from "../../../../../shared/common/components/search-input/search-input.component";
+import { DevelopersHeaderComponent } from "../../../../developers/components/developers/developers-header/developers-header.component";
+import { DevelopersListComponent } from "../../../../developers/components/developers/developers-list/developers-list.component";
+import { SearchParams } from '../../../../../shared/common/types/searchTypes';
+import { DeveloperSearcherService } from '../../../../developers/services/ui/developer-searcher.service';
 
 @Component({
     selector: 'app-developers',
-    imports: [CommonModule, FontAwesomeModule, DeveloperStatusComponent, SearchInputComponent],
+    imports: [CommonModule, FontAwesomeModule, DevelopersHeaderComponent, DevelopersListComponent],
     templateUrl: './developers.component.html',
 })
 export class DevelopersComponent implements OnChanges {
     @Input() project?: ProjectDataDto;
 
     developers?: RenaiDeveloperSearchDto[];
+    searchedDevelopers: RenaiDeveloperSearchDto[] = [];
 
+    searchParams: SearchParams = {
+        searchText: "", sortBy: "createdAt", isAscending: false,
+    } 
+    
     constructor(
         private readonly developerService: RenaiDeveloperService,
+        private readonly developerSearcherService: DeveloperSearcherService
     ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -37,6 +44,7 @@ export class DevelopersComponent implements OnChanges {
             next: (data) => {
                 console.log("Data:", data);
                 this.developers = data;
+                this.searchDevelopers();
             },
             error: (error) => {
                 console.error("Error fetching developers: ", error.message);
@@ -44,45 +52,8 @@ export class DevelopersComponent implements OnChanges {
         });
     }
 
-    pauseDeveloper(developerId: number): void {
-        this.developerService.pauseDeveloper(developerId).subscribe({
-            next: (data) => {
-                console.log("Success");
-                this.loadDevelopers();
-            },
-            error: (error) => {
-                console.error("Error pausing developer: ", error.message);
-            }
-        })
+    searchDevelopers(): void {
+        this.developerSearcherService.searchDevelopers(this.developers, this.searchParams);
+        this.searchedDevelopers = this.developerSearcherService.getSearchedDevelopers();
     }
-
-    resumeDeveloper(developerId: number): void {
-        this.developerService.resumeDeveloper(developerId).subscribe({
-            next: (data) => {
-                console.log("Success");
-                this.loadDevelopers();
-            },
-            error: (error) => {
-                console.error("Error pausing developer: ", error.message);
-            }
-        })
-    }
-
-    stopDeveloper(developerId: number): void {
-        this.developerService.stopDeveloper(developerId).subscribe({
-            next: (data) => {
-                console.log("Success");
-                this.loadDevelopers();
-            },
-            error: (error) => {
-                console.error("Error pausing developer: ", error.message);
-            }
-        })
-    }
-
-    DeveloperStatus = DeveloperStatus;
-    faArrowLeftRotate = faArrowLeftRotate;
-    faPlay = faPlay;
-    faPause = faPause;
-    faStop = faStop;
 }
