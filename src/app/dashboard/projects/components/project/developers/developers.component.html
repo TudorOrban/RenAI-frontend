@@ -1,1 +1,33 @@
-<p>developers works!</p>
+<!-- Header -->
+<div>
+
+</div>
+
+<div class="flex flex-col page-std-padding-x page-std-padding-y">
+    <div *ngFor="let developer of developers" class="flex items-center justify-between w-full py-4 border-b border-gray-300">
+        <div class="text-lg font-semibold">
+            {{ developer?.name }}
+        </div>
+
+        <div class="flex items-center space-x-2">
+            <button
+                *ngIf="developer.developerState.status == DeveloperStatus.RUNNING"
+                class="standard-action-button"
+            >
+                
+                <fa-icon [icon]="faPause"></fa-icon>
+            </button>
+            <button
+                *ngIf="developer.developerState.status == DeveloperStatus.RUNNING"
+                class="standard-action-button"
+            >
+                
+                <fa-icon [icon]="faPause"></fa-icon>
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="(developers?.length ?? 0) === 0" class="flex justify-center w-full py-40 text-xl font-semibold">
+        No Developers found.
+    </div>
+</div>
