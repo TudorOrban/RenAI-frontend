@@ -35,11 +35,11 @@ export interface TaskState {
 export interface TaskEvent {
     eventType: TaskEventType;
     timestamp: Date;
-    llmResponse: string;
-    commandRequest: string;
-    commandResponse: string;
-    writeFileRequest: WriteFileRequest;
-    writeFileResponse: string;
+    llmResponse?: string;
+    commandRequest?: string;
+    commandResponse?: string;
+    writeFileRequest?: WriteFileRequest;
+    writeFileResponse?: string;
 
 }
 

@@ -1,24 +1,15 @@
-<div class="page-std-padding-x page-std-padding-y">
+<div class="page-std-padding-y">
     
-    <div *ngIf="state?.taskEvents" class="">
-        <div class="py-4 text-lg font-semibold">
+    <div *ngIf="state?.taskEvents">
+        <div class="text-lg font-semibold page-std-padding-x ">
             Task Events ({{ state?.taskEvents?.length ?? 0 }})
         </div>
 
-        <div 
-            *ngFor="let event of state?.taskEvents"
-        >
-            <div
-                *ngIf="event.eventType !== TaskEventType.LLM_RESPONSE"
-                class="flex items-center space-x-8"
+        <div class="flex flex-col">
+            <div 
+                *ngFor="let event of state?.taskEvents"
             >
-                <div>
-                    {{ dataFormatterService.formatDate(event.timestamp) }}
-                </div>
-
-                <div>
-                    {{ dataFormatterService.formatEnumString(event.eventType) }}
-                </div>
+                <app-task-event [event]="event"></app-task-event>
             </div>
         </div>
     </div>
