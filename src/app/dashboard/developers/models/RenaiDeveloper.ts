@@ -72,7 +72,7 @@ export interface WorkspaceNode {
     name: string;
     isDirectory: boolean;
     children?: WorkspaceNode[];
-    isCollapsed?: boolean; // Referring to backend not including its children (TODO: Rename appropriately)
+    collapsed?: boolean; // Referring to backend not including its children (TODO: Rename appropriately)
 }
 
 export interface ReadFileResponseDto {
@@ -80,10 +80,21 @@ export interface ReadFileResponseDto {
 }
 
 // UI
-export interface WorkspaceNodeUI extends WorkspaceNode {
+export interface WorkspaceNodeUI {
+    name: string;
+    isDirectory: boolean;
+    children?: WorkspaceNodeUI[];
+    collapsed?: boolean; 
+    path?: string;
     isExpanded?: boolean; // Referring to UI component not rendering its children
 }
 
 export interface WorkspaceTreeUI {
     root: WorkspaceNodeUI;
+}
+
+export interface WorkspaceFile {
+    name?: string;
+    path?: string;
+    content?: string;
 }

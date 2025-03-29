@@ -1,12 +1,16 @@
-<div class="p-4 border border-gray-300 h-full">
+<div class="p-4 w-60 border border-gray-300 overflow-y-auto">
     <div *ngIf="tree">
         <ng-container *ngTemplateOutlet="treeNode; context: { $implicit: tree.root }"></ng-container>
     </div>
 
     <ng-template #treeNode let-node>
-        <div class="ml-8 py-2">
+        <div class="ml-4 whitespace-nowrap">
             <div *ngIf="node.directory === true" class="flex items-center space-x-2">
-                <button (click)="toggleExpanded(node)" class="hover:text-gray-800">
+                <button 
+                    *ngIf="node.children.length > 0 || node.collapsed"
+                    (click)="toggleExpanded(node)" 
+                    class="hover:text-gray-800"
+                >
                     <fa-icon [icon]="getCaretIcon(node)" class="text-sm text-gray-700"></fa-icon>
                 </button>
                 <fa-icon [icon]="faFolder" class="text-sm text-gray-700"></fa-icon>
@@ -15,6 +19,7 @@
                 </span>
             </div>
             <div *ngIf="node.directory === false" class="flex items-center space-x-2">
+                <div></div>
                 <fa-icon [icon]="faFile" class="text-sm text-gray-700"></fa-icon>
                 <button class="text-blue-700 hover:underline" (click)="readFile(node.path)">
                     {{ node.name }}
@@ -25,6 +30,9 @@
                 <ng-container *ngFor="let child of node.children">
                     <ng-container *ngTemplateOutlet="treeNode; context: { $implicit: child }"></ng-container>
                 </ng-container>
+                <div *ngIf="node.collapsed">
+                    Collapsed
+                </div>
             </div>
         </div>
     </ng-template>

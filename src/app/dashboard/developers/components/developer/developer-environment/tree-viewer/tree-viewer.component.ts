@@ -1,38 +1,33 @@
-import { Component, Input } from '@angular/core';
-import { RenaiDeveloperSearchDto, WorkspaceNodeUI, WorkspaceTree, WorkspaceTreeUI } from '../../../../models/RenaiDeveloper';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { RenaiDeveloperSearchDto, WorkspaceNodeUI, WorkspaceTreeUI } from '../../../../models/RenaiDeveloper';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCaretDown, faCaretUp, faFile, faFolder, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { DeveloperWorkspaceService } from '../../../../services/api/developer-workspace.service';
+import { WorkspaceNavigatorService } from '../../../../services/ui/workspace-navigator.service';
+import { WorkspaceFileManagerService } from '../../../../services/ui/workspace-file-manager.service';
 
 @Component({
     selector: 'app-tree-viewer',
     imports: [CommonModule, FontAwesomeModule],
     templateUrl: './tree-viewer.component.html',
 })
-export class TreeViewerComponent {
+export class TreeViewerComponent implements OnChanges {
     @Input() developer?: RenaiDeveloperSearchDto;
     @Input() tree?: WorkspaceTreeUI;
 
     constructor(
-        private readonly workspaceService: DeveloperWorkspaceService
+        private readonly workspaceNavigatorService: WorkspaceNavigatorService,
+        private readonly workspaceFileManager: WorkspaceFileManagerService,
     ) {}
 
-    readFile(filePath: string): void {
-        console.log("Reading: ", filePath);
-        if (!this.developer?.id) {
-            return;
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes["tree"] && changes["tree"].currentValue) {
+            this.workspaceNavigatorService.determinePaths(this.tree);
         }
+    }
 
-        this.workspaceService.readFile(this.developer.id, filePath).subscribe({
-            next: (data) => {
-                console.log("File Content:", data.content);
-                // this.fileContent = data.content;
-            },
-            error: (error) => {
-                console.error("Error occurred while reading file:", error.message);
-            }
-        });
+    readFile(filePath: string): void {
+        this.workspaceFileManager.readFile(this.developer?.id, filePath);
     }
 
     getCaretIcon(node?: WorkspaceNodeUI): IconDefinition {
