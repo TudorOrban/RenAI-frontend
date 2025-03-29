@@ -1,0 +1,22 @@
+.resizable-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.resizable-tree-viewer {
+    width: 256px;
+    flex-shrink: 0;
+    overflow: auto;
+}
+
+.resizable-file-viewer {
+    flex-grow: 1;
+    overflow: auto;
+}
+
+.resizer {
+    width: 5px;
+    background-color: #ddd;
+    cursor: col-resize;
+}

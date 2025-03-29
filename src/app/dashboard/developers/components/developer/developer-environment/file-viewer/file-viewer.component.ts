@@ -1,17 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WorkspaceFileManagerService } from '../../../../services/ui/workspace/workspace-file-manager.service';
 import { WorkspaceFile } from "../../../../models/UITypes";
 import { Subscription } from 'rxjs';
 import { FileTypeDetectorService } from '../../../../services/ui/workspace/file-type-detector.service';
+import { HighlightModule } from 'ngx-highlightjs';
+import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
 
 @Component({
     selector: 'app-file-viewer',
-    imports: [CommonModule],
+    imports: [CommonModule, HighlightModule, HighlightLineNumbers],
     templateUrl: './file-viewer.component.html',
 })
 export class FileViewerComponent implements OnInit, OnDestroy {
     file?: WorkspaceFile;
+    language: string | undefined = undefined;
     private fileSubscription?: Subscription;
 
     constructor(
@@ -30,7 +33,8 @@ export class FileViewerComponent implements OnInit, OnDestroy {
 
         this.file = file;
         this.file.fileType = this.fileTypeDetector.detectFileType(file.name);
-        console.log("DSA", this.file.fileType);
+        this.language = this.fileTypeDetector.mapFileTypeToLanguage(this.file.fileType);
+        this.language = this.fileTypeDetector.mapFileTypeToLanguage(this.file.fileType);
     }
 
     ngOnDestroy(): void {

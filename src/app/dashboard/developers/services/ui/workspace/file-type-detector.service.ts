@@ -54,4 +54,49 @@ export class FileTypeDetectorService {
                 return FileType.UNKNOWN;
         }
     }
+
+    mapFileTypeToLanguage(fileType: FileType): string | undefined {
+        switch (fileType) {
+            case FileType.TEXT:
+                return undefined;
+            case FileType.MD:
+                return "markdown";
+            case FileType.JSON:
+                return "json";
+            case FileType.XML:
+                return "xml";
+            case FileType.JAVASCRIPT:
+                return "javascript";
+            case FileType.TYPESCRIPT:
+                return "typescript";
+            case FileType.PYTHON:
+                return "python";
+            case FileType.JAVA:
+                return "java";
+            case FileType.CSHARP:
+                return "csharp";
+            case FileType.CPP:
+                return "cpp";
+            case FileType.C:
+                return "c";
+            case FileType.RUST:
+                return "rust";
+            case FileType.GO:
+                return "go";
+            case FileType.RUBY:
+                return "ruby";
+            case FileType.PHP:
+                return "php";
+            case FileType.SQL:
+                return "sql";
+            case FileType.SWIFT:
+                return "swift";
+            case FileType.DART:
+                return "dart";
+            case FileType.KOTLIN:
+                return "kotlin";
+            default:
+                return undefined;
+        }
+    }
 }

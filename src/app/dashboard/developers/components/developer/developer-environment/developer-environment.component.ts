@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, Input, OnChanges, SimpleChanges, ViewChild, ElementRef, AfterViewInit, OnDestroy } from "@angular/core";
 import { RenaiDeveloperSearchDto, WorkspaceTree } from "../../../models/RenaiDeveloper";
 import { DeveloperWorkspaceService } from "../../../services/api/developer-workspace.service";
 import { CommonModule } from "@angular/common";
@@ -10,16 +10,39 @@ import { FileViewerComponent } from "./file-viewer/file-viewer.component";
     selector: "app-developer-environment",
     imports: [CommonModule, FontAwesomeModule, TreeViewerComponent, FileViewerComponent],
     templateUrl: "./developer-environment.component.html",
+    styleUrl: "./developer-environment.component.css"
 })
-export class DeveloperEnvironmentComponent implements OnChanges {
+export class DeveloperEnvironmentComponent implements OnChanges, AfterViewInit, OnDestroy {
     @Input() developer?: RenaiDeveloperSearchDto;
 
     tree?: WorkspaceTree;
     fileContent?: string;
 
+    @ViewChild("treeViewerElement", { static: false, read: ElementRef }) treeViewer!: ElementRef;
+    @ViewChild("resizerElement", { static: false, read: ElementRef }) resizer!: ElementRef;
+    @ViewChild("fileViewerElement", { static: false, read: ElementRef }) fileViewer!: ElementRef;
+
+    private isResizing: boolean = false;
+    private startX: number = 0;
+    private treeWidth: number = 256;
+
     constructor(
         private readonly workspaceService: DeveloperWorkspaceService
     ) {}
+
+    ngAfterViewInit(): void {
+        if (this.resizer && this.resizer.nativeElement) {
+            console.log("PPP");
+            this.resizer.nativeElement.addEventListener("mousedown", this.onMouseDown.bind(this));
+        }
+        document.addEventListener("mousemove", this.onMouseMove.bind(this));
+        document.addEventListener("mouseup", this.onMouseUp.bind(this));
+    }
+
+    ngOnDestroy(): void {
+        document.removeEventListener("mousemove", this.onMouseMove.bind(this));
+        document.removeEventListener("mouseup", this.onMouseUp.bind(this));
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes["developer"] && changes["developer"].currentValue?.id !== changes["developer"].previousValue?.id) {
@@ -32,9 +55,8 @@ export class DeveloperEnvironmentComponent implements OnChanges {
             return;
         }
 
-        this.workspaceService.getWorkspaceTree(this.developer.id, 30).subscribe({
+        this.workspaceService.getWorkspaceTree(this.developer.id, 20).subscribe({
             next: (data) => {
-                console.log("Data:", data);
                 this.tree = data;
             },
             error: (error) => {
@@ -43,4 +65,24 @@ export class DeveloperEnvironmentComponent implements OnChanges {
         });
     }
 
+    onMouseDown(event: MouseEvent): void {
+        if (this.treeViewer && this.treeViewer.nativeElement) {
+            this.isResizing = true;
+            this.startX = event.pageX;
+            this.treeWidth = this.treeViewer.nativeElement.offsetWidth;
+        }
+    }
+
+    onMouseMove(event: MouseEvent): void {
+        if (!this.isResizing) {
+            return;
+        }
+
+        const newWidth = this.treeWidth + event.pageX - this.startX;
+        this.treeViewer.nativeElement.style.width = `${newWidth}px`;
+    }
+
+    onMouseUp(): void {
+        this.isResizing = false;
+    }
 }

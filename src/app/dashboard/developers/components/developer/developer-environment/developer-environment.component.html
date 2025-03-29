@@ -1,9 +1,13 @@
-<div class="flex w-full h-full">
-    <app-tree-viewer 
+<div class="flex w-full h-full resizable-container">
+    <app-tree-viewer
+        #treeViewerElement
         [developer]="developer"
         [tree]="tree"
+        class="resizable-tree-viewer"
     ></app-tree-viewer>
-    <app-file-viewer 
-        class="overflow-x-auto"
+    <div #resizerElement class="resizer"></div>
+    <app-file-viewer
+        #fileViewerElement 
+        class="h-full overflow-x-auto resizable-file-viewer"
     ></app-file-viewer>
 </div>

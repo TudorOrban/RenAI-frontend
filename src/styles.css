@@ -4,6 +4,7 @@
 @import url("styles/forms.css");
 
 @import "jsoneditor/dist/jsoneditor.css";
+@import "highlight.js/styles/github.css";
 @import "tailwindcss";
 
 

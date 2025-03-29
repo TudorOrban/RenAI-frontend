@@ -1,5 +1,6 @@
 <div 
-    class="p-4 w-64 h-full min-h-full border border-gray-300 overflow-y-auto"
+    *ngIf="isTreeInitialized"
+    class="p-4 w-full h-full min-h-full bg-gray-50 border border-gray-300 overflow-y-auto"
 >
     <div *ngIf="tree">
         <ng-container *ngTemplateOutlet="treeNode; context: { $implicit: tree.root }"></ng-container>

@@ -1,6 +1,6 @@
 export interface WorkspaceNodeUI {
     name: string;
-    isDirectory: boolean;
+    directory?: boolean;
     children?: WorkspaceNodeUI[];
     collapsed?: boolean;
     path?: string;

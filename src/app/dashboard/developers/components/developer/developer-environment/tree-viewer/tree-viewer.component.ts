@@ -5,7 +5,7 @@ import { WorkspaceNodeUI } from "../../../../models/UITypes";
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCaretDown, faCaretUp, faFile, faFolder, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { WorkspaceNavigatorService } from '../../../../services/ui/workspace/workspace-navigator.service';
+import { WorkspaceTreePreprocessorService } from '../../../../services/ui/workspace/workspace-tree-preprocessor.service';
 import { WorkspaceFileManagerService } from '../../../../services/ui/workspace/workspace-file-manager.service';
 
 @Component({
@@ -16,15 +16,17 @@ import { WorkspaceFileManagerService } from '../../../../services/ui/workspace/w
 export class TreeViewerComponent implements OnChanges {
     @Input() developer?: RenaiDeveloperSearchDto;
     @Input() tree?: WorkspaceTreeUI;
+    isTreeInitialized: boolean = false;
 
     constructor(
-        private readonly workspaceNavigatorService: WorkspaceNavigatorService,
+        private readonly workspaceNavigatorService: WorkspaceTreePreprocessorService,
         private readonly workspaceFileManager: WorkspaceFileManagerService,
     ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes["tree"] && changes["tree"].currentValue) {
-            this.workspaceNavigatorService.determinePaths(this.tree);
+            this.workspaceNavigatorService.preprocessTree(this.tree);
+            this.isTreeInitialized = true;
         }
     }
 
@@ -33,6 +35,7 @@ export class TreeViewerComponent implements OnChanges {
     }
 
     getCaretIcon(node?: WorkspaceNodeUI): IconDefinition {
+        
         return node?.isExpanded ? faCaretUp : faCaretDown;
     }
 

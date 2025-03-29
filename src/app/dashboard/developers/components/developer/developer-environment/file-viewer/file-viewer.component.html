@@ -1,3 +1,5 @@
-<div *ngIf="file" class="overflow-auto h-full flex-grow p-4">
-    <pre>{{ file.content }}</pre>
+<div *ngIf="file" class="overflow-auto h-full flex-grow">
+    <pre>
+        <code [highlight]="file.content || ''" [language]="language ?? 'xml'" lineNumbers></code>
+    </pre>
 </div>
