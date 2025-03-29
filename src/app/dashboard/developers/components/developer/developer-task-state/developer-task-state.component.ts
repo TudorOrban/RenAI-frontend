@@ -63,5 +63,9 @@ export class DeveloperTaskStateComponent implements OnChanges {
         this.searchEvents();
     }
 
+    canLoadMore(): boolean {
+        return (this.searchParams.page ?? 1) * (this.searchParams.itemsPerPage ?? 50) < (this.state?.taskEvents.length ?? 0); 
+    }
+
     TaskEventType = TaskEventType;
 }

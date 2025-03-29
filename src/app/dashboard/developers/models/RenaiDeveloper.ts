@@ -64,3 +64,18 @@ export enum ResponseType {
 export interface LifecycleActionResponseDto {
     message: string;
 }
+
+export interface WorkspaceTree {
+    root: WorkspaceNode;
+}
+
+export interface WorkspaceNode {
+    name: string;
+    isDirectory: boolean;
+    children?: WorkspaceNode[];
+    isCollapsed?: boolean;
+}
+
+export interface ReadFileResponseDto {
+    content: string;
+}

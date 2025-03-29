@@ -32,7 +32,7 @@ export class DeveloperComponent {
         { label: "Environment", value: "environment" },
     ];
 
-    selectedTab: UIItem = this.navigationItems[1];
+    selectedTab: UIItem = this.navigationItems[2];
 
     selectTab(tab: UIItem): void {
         this.selectedTab = tab;
