@@ -1,16 +1,17 @@
 <div class="page-std-padding-y">
     
-    <div *ngIf="state?.taskEvents">
-        <div class="text-lg font-semibold page-std-padding-x ">
-            Task Events ({{ state?.taskEvents?.length ?? 0 }})
-        </div>
+    <app-task-events-header
+        [searchParams]="searchParams"
+        [includeTitle]="true"
+        (searchParamsChanged)="searchEvents()"
+    ></app-task-events-header>
+    
 
-        <div class="flex flex-col">
-            <div 
-                *ngFor="let event of state?.taskEvents"
-            >
-                <app-task-event [event]="event"></app-task-event>
-            </div>
+    <div class="flex flex-col">
+        <div 
+            *ngFor="let event of searchedEvents"
+        >
+            <app-task-event [event]="event"></app-task-event>
         </div>
     </div>
 </div>

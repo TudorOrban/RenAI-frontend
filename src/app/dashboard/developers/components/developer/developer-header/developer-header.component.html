@@ -10,8 +10,9 @@
     </div>
 
     <div>
-        <button class="standard-action-button">
-            <fa-icon [icon]="faEllipsis"></fa-icon>
-        </button>
+        <app-developer-lifecycle-manager
+            [developer]="developer"
+            (onDeveloperReload)="handleReloadDeveloper()"
+        ></app-developer-lifecycle-manager>
     </div>
 </div>

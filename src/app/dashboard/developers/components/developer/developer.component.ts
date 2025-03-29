@@ -60,7 +60,7 @@ export class DeveloperComponent {
         });
     }
 
-    private loadDeveloper(): void {
+    loadDeveloper(): void {
         if (!this.developerId) {
             return;
         }

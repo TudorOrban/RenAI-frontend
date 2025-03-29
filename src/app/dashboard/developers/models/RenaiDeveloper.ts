@@ -6,9 +6,9 @@ export interface RenaiDeveloperSearchDto {
     id: number;
     projectId: number;
     name: string;
-    description: string;
-    createdAt: Date;
-    updatedAt: Date;
+    description?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
     developerState: DeveloperState;
 }
 

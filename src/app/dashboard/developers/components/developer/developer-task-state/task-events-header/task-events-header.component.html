@@ -1,0 +1,32 @@
+<div class="page-std-padding-x pb-4 w-full border-b border-gray-300 shadow-sm">
+    <div *ngIf="includeTitle" class="text-xl font-semibold pb-2">
+        Task Events
+    </div>
+    <div class="flex items-center justify-between w-full space-x-2">
+
+        <div class="flex items-center space-x-2">
+            <app-search-input
+                (onSearch)="handleSearchTextChange($event)"
+            ></app-search-input>
+
+            <app-selector 
+                [items]="searchConfig.sortOptions" 
+                [defaultItemValue]="'createdAt'" 
+                (selectedItemChange)="handleSortOptionChange($event)"
+                class="ml-8"
+            ></app-selector>
+
+            <button class="standard-action-button" (click)="handleToggleIsAscending()">
+                <fa-icon [icon]="searchParams.isAscending ? faArrowUpWideShort : faArrowDownWideShort"></fa-icon>
+            </button>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <button
+                class="standard-action-button"
+            >
+                <fa-icon [icon]="faArrowLeftRotate"></fa-icon>
+            </button>
+        </div>
+    </div>
+</div>

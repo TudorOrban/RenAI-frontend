@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DeveloperStatus } from '../../../../../developers/models/RenaiDeveloper';
+import { DeveloperStatus } from '../../../../models/RenaiDeveloper';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DataFormatterService } from '../../../../../../shared/common/services/data-formatter.service';

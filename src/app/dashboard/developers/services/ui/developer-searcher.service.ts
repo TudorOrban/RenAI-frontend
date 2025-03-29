@@ -26,7 +26,7 @@ export class DeveloperSearcherService {
         let filteredDevelopers = developers.filter((developer) => {
             return (
                 developer.name.toLowerCase().includes(searchText) ||
-                developer.description.toLowerCase().includes(searchText)
+                developer.description?.toLowerCase().includes(searchText)
             );
         });
 
@@ -34,6 +34,7 @@ export class DeveloperSearcherService {
         filteredDevelopers.sort((a, b) => {
             const aValue = a[searchParams.sortBy as keyof RenaiDeveloperSearchDto];
             const bValue = b[searchParams.sortBy as keyof RenaiDeveloperSearchDto];
+            if (!aValue || !bValue) return 0;
 
             if (aValue < bValue) {
                 return searchParams.isAscending ? -1 : 1;

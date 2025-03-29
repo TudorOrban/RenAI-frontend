@@ -8,6 +8,10 @@ export const standardSortOptions: UIItem[] = [
     { label: "Name", value: "name" },
 ];
 
+export const eventSortOptions: UIItem[] = [
+    { label: "Timestamp", value: "timestamp" }
+];
+
 export const pagesSearchConfiguration: PagesSearchConfiguration = {
     pagesConfig: {
         "/dashboard/projects": {
@@ -15,6 +19,9 @@ export const pagesSearchConfiguration: PagesSearchConfiguration = {
         },
         "/dashboard/developers": {
             sortOptions: standardSortOptions
+        },
+        "/dashboard/developers/events": {
+            sortOptions: eventSortOptions
         }
     },
 };

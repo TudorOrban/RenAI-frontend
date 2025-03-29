@@ -4,19 +4,29 @@ import { RenaiDeveloperService } from '../../../services/api/renai-developer.ser
 import { CommonModule } from '@angular/common';
 import { DataFormatterService } from '../../../../../shared/common/services/data-formatter.service';
 import { TaskEventComponent } from "./task-event/task-event.component";
+import { SearchParams } from '../../../../../shared/common/types/searchTypes';
+import { TaskEventSearcherService } from '../../../services/ui/task-event-searcher.service';
+import { DevelopersHeaderComponent } from "../../developers/developers-header/developers-header.component";
+import { TaskEventsHeaderComponent } from "./task-events-header/task-events-header.component";
 
 @Component({
     selector: 'app-developer-task-state',
-    imports: [CommonModule, TaskEventComponent],
+    imports: [CommonModule, TaskEventComponent, TaskEventsHeaderComponent],
     templateUrl: './developer-task-state.component.html',
 })
 export class DeveloperTaskStateComponent implements OnChanges {
     @Input() developer?: RenaiDeveloperSearchDto;
 
     state?: TaskState;
+    searchedEvents: TaskEvent[] = [];
+
+    searchParams: SearchParams = {
+        searchText: "", sortBy: "timestamp", isAscending: false, page: 1, itemsPerPage: 50
+    };
 
     constructor(
         private readonly developerService: RenaiDeveloperService,
+        private readonly eventSearcherService: TaskEventSearcherService,
         readonly dataFormatterService: DataFormatterService
     ) {}
 
@@ -33,10 +43,8 @@ export class DeveloperTaskStateComponent implements OnChanges {
 
         this.developerService.getState(this.developer.id).subscribe({
             next: (data) => {
-                console.log("Data: ", data);
                 this.state = data;
-                this.sortEvents();
-
+                this.searchEvents();
             },
             error: (error) => {
                 console.error("Error trying to fetch Task State: ", error.message); 
@@ -44,12 +52,9 @@ export class DeveloperTaskStateComponent implements OnChanges {
         });
     }
     
-    private sortEvents(): void {
-        if (this.state && this.state.taskEvents) {
-            this.state.taskEvents.sort((a: TaskEvent, b: TaskEvent) => {
-                return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
-            });
-        }
+    searchEvents(): void {
+        this.eventSearcherService.searchEvents(this.state?.taskEvents, this.searchParams);
+        this.searchedEvents = this.eventSearcherService.getSearchedEvents();
     }
 
     TaskEventType = TaskEventType;
