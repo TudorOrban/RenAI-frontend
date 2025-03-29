@@ -8,6 +8,7 @@ export interface UIItem {
 }
 
 export interface ToastItem {
+    id?: number;
     title: string;
     details?: string;
     type: ToastType;

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastItem, ToastType } from '../../../types/uiTypes';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -12,6 +12,11 @@ import { faCheck, faExclamation, faInfo, faXmark, IconDefinition } from '@fortaw
 })
 export class ToastComponent {
     @Input() item!: ToastItem;
+    @Output() close = new EventEmitter<number>(); 
+
+    onClose(): void {
+        this.close.emit(this.item.id);
+    }
 
     getColorByToastType(): string {
         switch (this.item.type) {

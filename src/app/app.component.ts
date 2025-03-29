@@ -5,10 +5,11 @@ import { filter } from "rxjs";
 import { CommonModule } from "@angular/common";
 import { HeaderComponent } from "./core/main/components/header/header.component";
 import { AuthService } from "./core/user/services/auth.service";
+import { ToastManagerComponent } from "./shared/common/components/toast-manager/toast-manager.component";
 
 @Component({
   selector: "app-root",
-  imports: [CommonModule, RouterOutlet, SidebarComponent, HeaderComponent],
+  imports: [CommonModule, RouterOutlet, SidebarComponent, HeaderComponent, ToastManagerComponent],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css"
 })
