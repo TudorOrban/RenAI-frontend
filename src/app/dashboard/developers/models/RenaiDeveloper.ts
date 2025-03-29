@@ -1,4 +1,3 @@
-import { EventType } from "@angular/router";
 import { ProjectDataDto } from "../../projects/models/Project";
 
 
@@ -73,9 +72,18 @@ export interface WorkspaceNode {
     name: string;
     isDirectory: boolean;
     children?: WorkspaceNode[];
-    isCollapsed?: boolean;
+    isCollapsed?: boolean; // Referring to backend not including its children (TODO: Rename appropriately)
 }
 
 export interface ReadFileResponseDto {
     content: string;
+}
+
+// UI
+export interface WorkspaceNodeUI extends WorkspaceNode {
+    isExpanded?: boolean; // Referring to UI component not rendering its children
+}
+
+export interface WorkspaceTreeUI {
+    root: WorkspaceNodeUI;
 }
