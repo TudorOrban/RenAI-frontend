@@ -1,25 +1,28 @@
 import { Injectable, signal } from "@angular/core";
-import { DeveloperWorkspaceService } from "../api/developer-workspace.service";
-import { WorkspaceFile } from "../../models/RenaiDeveloper";
+import { DeveloperWorkspaceService } from "../../api/developer-workspace.service";
+import { WorkspaceFile } from "../../../models/UITypes";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
     providedIn: "root"
 })
 export class WorkspaceFileManagerService {
-    currentOpenFile = signal<WorkspaceFile | undefined>(undefined);
+    private currentOpenFileSubject = new BehaviorSubject<WorkspaceFile | undefined>(undefined);
+    currentOpenFile$: Observable<WorkspaceFile | undefined> = this.currentOpenFileSubject.asObservable();
 
     constructor(
         private readonly workspaceService: DeveloperWorkspaceService
     ) {}
 
-    readFile(developerId?: number, filePath?: string): void {
+    readFile(developerId?: number, fileName?: string, filePath?: string): void {
         if (!developerId || !filePath) {
             return;
         }
 
         this.workspaceService.readFile(developerId, filePath).subscribe({
             next: (data) => {
-                this.currentOpenFile.set({ 
+                this.currentOpenFileSubject.next({
+                    name: fileName,
                     path: filePath,
                     content: data.content,
                 });
@@ -28,10 +31,6 @@ export class WorkspaceFileManagerService {
                 console.error("Error occurred while reading file:", error.message);
             }
         });
-    }
-
-    getCurrentOpenFile(): WorkspaceFile | undefined {
-        return this.currentOpenFile();
     }
 
 }

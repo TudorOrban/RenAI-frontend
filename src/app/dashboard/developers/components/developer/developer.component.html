@@ -1,24 +1,26 @@
-<app-developer-header
-    [developer]="developer"
-    (onDeveloperReload)="loadDeveloper()"
-    class="bg-gray-50"
-></app-developer-header>
+<div class="h-screen flex flex-col overflow-hidden">
+    <app-developer-header
+        [developer]="developer"
+        (onDeveloperReload)="loadDeveloper()"
+        class="bg-gray-50"
+    ></app-developer-header>
 
-<app-tab-navigation
-    [navigationItems]="navigationItems"
-    [selectedItemValue]="selectedTab.value"
-    (itemSelected)="selectTab($event)"
-    class="bg-gray-50"
-></app-tab-navigation>
+    <app-tab-navigation
+        [navigationItems]="navigationItems"
+        [selectedItemValue]="selectedTab.value"
+        (itemSelected)="selectTab($event)"
+        class="bg-gray-50"
+    ></app-tab-navigation>
 
-<div *ngIf="selectedTab.value === 'overview'">
-    <app-developer-overview [developer]="developer"></app-developer-overview>
-</div>
+    <div *ngIf="selectedTab.value === 'overview'">
+        <app-developer-overview [developer]="developer"></app-developer-overview>
+    </div>
 
-<div *ngIf="selectedTab.value === 'task-state'">
-    <app-developer-task-state [developer]="developer"></app-developer-task-state>
-</div>
+    <div *ngIf="selectedTab.value === 'task-state'">
+        <app-developer-task-state [developer]="developer"></app-developer-task-state>
+    </div>
 
-<div *ngIf="selectedTab.value === 'environment'">
-    <app-developer-environment [developer]="developer"></app-developer-environment>
+    <div *ngIf="selectedTab.value === 'environment'" class="h-full overflow-y-auto overflow-x-auto">
+        <app-developer-environment [developer]="developer"></app-developer-environment>
+    </div>
 </div>

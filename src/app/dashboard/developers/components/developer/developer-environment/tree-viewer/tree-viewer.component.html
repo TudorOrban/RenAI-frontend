@@ -1,4 +1,6 @@
-<div class="p-4 w-60 border border-gray-300 overflow-y-auto">
+<div 
+    class="p-4 w-64 h-full min-h-full border border-gray-300 overflow-y-auto"
+>
     <div *ngIf="tree">
         <ng-container *ngTemplateOutlet="treeNode; context: { $implicit: tree.root }"></ng-container>
     </div>
@@ -21,7 +23,7 @@
             <div *ngIf="node.directory === false" class="flex items-center space-x-2">
                 <div></div>
                 <fa-icon [icon]="faFile" class="text-sm text-gray-700"></fa-icon>
-                <button class="text-blue-700 hover:underline" (click)="readFile(node.path)">
+                <button class="text-blue-700 hover:underline" (click)="readFile(node.name, node.path)">
                     {{ node.name }}
                 </button>
             </div>

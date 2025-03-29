@@ -32,7 +32,7 @@ export class DeveloperEnvironmentComponent implements OnChanges {
             return;
         }
 
-        this.workspaceService.getWorkspaceTree(this.developer.id, 10).subscribe({
+        this.workspaceService.getWorkspaceTree(this.developer.id, 30).subscribe({
             next: (data) => {
                 console.log("Data:", data);
                 this.tree = data;

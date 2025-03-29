@@ -1,6 +1,5 @@
 import { ProjectDataDto } from "../../projects/models/Project";
 
-
 export interface RenaiDeveloperSearchDto {
     id: number;
     projectId: number;
@@ -22,7 +21,7 @@ export enum DeveloperStatus {
     DESTROYING = "DESTROYING",
     PAUSED = "PAUSED",
     STOPPED = "STOPPED",
-    FAILED = "FAILED"
+    FAILED = "FAILED",
 }
 
 export interface TaskState {
@@ -39,7 +38,6 @@ export interface TaskEvent {
     commandResponse?: string;
     writeFileRequest?: WriteFileRequest;
     writeFileResponse?: string;
-
 }
 
 export enum TaskEventType {
@@ -47,7 +45,7 @@ export enum TaskEventType {
     RUN_COMMAND_REQUEST = "RUN_COMMAND_REQUEST",
     COMMAND_RESPONSE = "COMMAND_RESPONSE",
     WRITE_FILE_REQUEST = "WRITE_FILE_REQUEST",
-    WRITE_FILE_RESPONSE = "WRITE_FILE_RESPONSE"
+    WRITE_FILE_RESPONSE = "WRITE_FILE_RESPONSE",
 }
 
 export interface WriteFileRequest {
@@ -57,7 +55,7 @@ export interface WriteFileRequest {
 
 export enum ResponseType {
     SUCCESS = "SUCCESS",
-    ERROR = "ERROR"
+    ERROR = "ERROR",
 }
 
 export interface LifecycleActionResponseDto {
@@ -77,24 +75,4 @@ export interface WorkspaceNode {
 
 export interface ReadFileResponseDto {
     content: string;
-}
-
-// UI
-export interface WorkspaceNodeUI {
-    name: string;
-    isDirectory: boolean;
-    children?: WorkspaceNodeUI[];
-    collapsed?: boolean; 
-    path?: string;
-    isExpanded?: boolean; // Referring to UI component not rendering its children
-}
-
-export interface WorkspaceTreeUI {
-    root: WorkspaceNodeUI;
-}
-
-export interface WorkspaceFile {
-    name?: string;
-    path?: string;
-    content?: string;
 }

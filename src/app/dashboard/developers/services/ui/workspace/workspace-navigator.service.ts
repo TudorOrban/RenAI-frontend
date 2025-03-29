@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { WorkspaceNodeUI, WorkspaceTreeUI } from "../../models/RenaiDeveloper";
+import { WorkspaceTreeUI } from "../../../models/UITypes";
+import { WorkspaceNodeUI } from "../../../models/UITypes";
 
 @Injectable({
     providedIn: "root"

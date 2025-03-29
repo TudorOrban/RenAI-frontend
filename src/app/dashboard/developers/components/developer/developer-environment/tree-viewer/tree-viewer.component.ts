@@ -1,10 +1,12 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { RenaiDeveloperSearchDto, WorkspaceNodeUI, WorkspaceTreeUI } from '../../../../models/RenaiDeveloper';
+import { RenaiDeveloperSearchDto } from '../../../../models/RenaiDeveloper';
+import { WorkspaceTreeUI } from "../../../../models/UITypes";
+import { WorkspaceNodeUI } from "../../../../models/UITypes";
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCaretDown, faCaretUp, faFile, faFolder, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { WorkspaceNavigatorService } from '../../../../services/ui/workspace-navigator.service';
-import { WorkspaceFileManagerService } from '../../../../services/ui/workspace-file-manager.service';
+import { WorkspaceNavigatorService } from '../../../../services/ui/workspace/workspace-navigator.service';
+import { WorkspaceFileManagerService } from '../../../../services/ui/workspace/workspace-file-manager.service';
 
 @Component({
     selector: 'app-tree-viewer',
@@ -26,8 +28,8 @@ export class TreeViewerComponent implements OnChanges {
         }
     }
 
-    readFile(filePath: string): void {
-        this.workspaceFileManager.readFile(this.developer?.id, filePath);
+    readFile(fileName: string, filePath: string): void {
+        this.workspaceFileManager.readFile(this.developer?.id, fileName, filePath);
     }
 
     getCaretIcon(node?: WorkspaceNodeUI): IconDefinition {
