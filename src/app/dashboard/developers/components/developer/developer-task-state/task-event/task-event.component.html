@@ -1,40 +1,72 @@
-<div class="border-b border-gray-300 page-std-padding-x py-3 hover:bg-gray-50">
-    <table class="w-full">
-        <tr class="">
-            <td class="w-1/4"> {{ dataFormatterService.formatDate(event.timestamp) }}
-            </td>
-
-            <td class="w-1/4"> 
-                <div *ngIf="event.eventType === TaskEventType.RUN_COMMAND_REQUEST" class="flex items-center space-x-2 text-blue-600">
-                    <fa-icon [icon]="faTerminal" class="text-sm"></fa-icon>
-                    <p>Command</p>
+<!-- TODO: Replace with table -->
+<div class="flex items-center justify-between border-b border-gray-300 page-std-padding-x py-3 hover:bg-gray-50 whitespace-nowrap">
+    <div class="flex items-center space-x-8">
+        <div class="text-sm text-gray-800"> 
+            {{ dataFormatterService.formatDate(event.timestamp) }}
+        </div>
+    
+        <div class=""> 
+            <div *ngIf="event.eventType === TaskEventType.RUN_COMMAND_REQUEST" class="flex items-center space-x-2 text-blue-600 pr-14">
+                <fa-icon [icon]="faTerminal" class="text-sm"></fa-icon>
+                <p>Command</p>
+            </div>
+            <div *ngIf="event.eventType === TaskEventType.COMMAND_RESPONSE" class="flex items-center space-x-2 text-blue-600">
+                <fa-icon [icon]="faTerminal" class="text-sm"></fa-icon>
+                <p>Command Output</p>
+            </div>
+            <div *ngIf="event.eventType === TaskEventType.WRITE_FILE_REQUEST" class="flex items-center space-x-2 text-blue-600 pr-15">
+                <fa-icon [icon]="faTerminal" class="text-sm"></fa-icon>
+                <p>Write File</p>
+            </div>
+            <div *ngIf="event.eventType === TaskEventType.WRITE_FILE_RESPONSE" class="flex items-center space-x-2 text-blue-600 pr-1">
+                <fa-icon [icon]="faTerminal" class="text-sm"></fa-icon>
+                <p>Write File Output</p>
+            </div>
+        </div>
+    
+        <div class=""> 
+            <div *ngIf="event.eventType === TaskEventType.RUN_COMMAND_REQUEST">
+                {{ event.commandRequest }}
+            </div>
+            <p *ngIf="event.eventType === TaskEventType.COMMAND_RESPONSE">
+                {{ truncate(event.commandResponse) ?? 'None' }}
+            </p>
+            <div *ngIf="event.eventType === TaskEventType.WRITE_FILE_REQUEST" class="flex items-center space-x-2">
+                <div class="font-semibold">
+                    {{ event.writeFileRequest?.filepath }}
                 </div>
-                <div *ngIf="event.eventType === TaskEventType.COMMAND_RESPONSE" class="flex items-center space-x-2 text-blue-600">
-                    <fa-icon [icon]="faTerminal" class="text-sm"></fa-icon>
-                    <p>Command Output</p>
+                <div class="font-semibold">
+                    >
                 </div>
-            </td>
-
-            <td class="w-1/4"> 
-                <div *ngIf="event.eventType === TaskEventType.RUN_COMMAND_REQUEST">
-                    {{ event.commandRequest }}
+                <div>
+                    {{ truncate(shortWriteFileContent()) }}
                 </div>
-                <div *ngIf="event.eventType === TaskEventType.COMMAND_RESPONSE">
-                    {{ truncate(event.commandResponse) }}
-                </div>
-            </td>
+            </div>
+            <p *ngIf="event.eventType === TaskEventType.WRITE_FILE_RESPONSE">
+                {{ truncate(event.writeFileResponse) ?? 'None' }}
+            </p>
+        </div>
+    </div>
 
-            <td class="w-1/4 text-right"> 
-                <button *ngIf="isExpandable()" (click)="toggleIsExpanded()" class="cursor-pointer">
-                    <fa-icon [icon]="getCaretIcon()"></fa-icon>
-                </button>
-            </td>
-        </tr>
+    <div class="text-right px-4"> 
+        <button *ngIf="isExpandable()" (click)="toggleIsExpanded()" class="cursor-pointer">
+            <fa-icon [icon]="getCaretIcon()"></fa-icon>
+        </button>
+    </div>
+</div>
 
-        <tr *ngIf="isExpanded()">
-            <td colspan="4" class="p-4">
-                {{ event.commandResponse }}
-            </td>
-        </tr>
-    </table>
+<div *ngIf="isExpanded()" class="px-16 py-4">
+        
+    <div *ngIf="event.eventType === TaskEventType.RUN_COMMAND_REQUEST">
+        {{ event.commandRequest }}
+    </div>
+    <p *ngIf="event.eventType === TaskEventType.COMMAND_RESPONSE">
+        {{ event.commandResponse }}
+    </p>
+    <div *ngIf="event.eventType === TaskEventType.WRITE_FILE_REQUEST" class="p-2 bg-gray-50 border border-gray-300 rounded-md">
+        <pre [innerHTML]="longWriteFileContent()" style="white-space: pre-wrap; font-family: monospace;"></pre>
+    </div>
+    <p *ngIf="event.eventType === TaskEventType.COMMAND_RESPONSE">
+        {{ event.writeFileResponse }}
+    </p>
 </div>

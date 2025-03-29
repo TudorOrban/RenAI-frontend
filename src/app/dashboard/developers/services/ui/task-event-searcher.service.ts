@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { SearchParams } from "../../../../shared/common/types/searchTypes";
-import { TaskEvent } from "../../models/RenaiDeveloper";
+import { TaskEvent, TaskEventType } from "../../models/RenaiDeveloper";
 
 @Injectable({
     providedIn: "root"
@@ -24,7 +24,7 @@ export class TaskEventSearcherService {
 
         const searchText = searchParams.searchText?.toLowerCase() ?? "";
         let filteredEvents = events.filter((event) => {
-            return true;
+            return event.eventType !== TaskEventType.LLM_RESPONSE
             // return (
             //     event.name.toLowerCase().includes(searchText) ||
             //     event.description.toLowerCase().includes(searchText)
@@ -47,6 +47,7 @@ export class TaskEventSearcherService {
         });
 
         // Paging
-        this.searchedEvents = filteredEvents.filter((e, index) => index < (searchParams.itemsPerPage ?? 50));
+        const limit = (searchParams.page ?? 1) * (searchParams.itemsPerPage ?? 50);
+        this.searchedEvents = filteredEvents.filter((e, index) => index < limit);
     }
 }

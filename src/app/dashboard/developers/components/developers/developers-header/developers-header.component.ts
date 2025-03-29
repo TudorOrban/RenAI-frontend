@@ -18,6 +18,7 @@ export class DevelopersHeaderComponent {
     @Input() searchParams!: SearchParams;
     @Input() includeTitle?: boolean = false;
     @Output() searchParamsChanged = new EventEmitter<void>();
+    @Output() onRefresh = new EventEmitter<void>();
 
     searchConfig: PageSearchConfiguration = pagesSearchConfiguration.pagesConfig["/dashboard/developers"];
 
@@ -36,6 +37,9 @@ export class DevelopersHeaderComponent {
         this.searchParamsChanged.emit();
     }
 
+    handleRefresh(): void {
+        this.onRefresh.emit();
+    }
 
 
     faArrowLeftRotate = faArrowLeftRotate;

@@ -2,6 +2,7 @@
     [searchParams]="searchParams"
     [includeTitle]="false"
     (searchParamsChanged)="searchDevelopers()"
+    (onRefresh)="loadDevelopers()"
 ></app-developers-header>
 
 <app-developers-list

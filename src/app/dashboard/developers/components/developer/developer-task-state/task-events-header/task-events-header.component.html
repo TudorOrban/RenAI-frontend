@@ -1,9 +1,9 @@
 <div class="page-std-padding-x pb-4 w-full border-b border-gray-300 shadow-sm">
-    <div *ngIf="includeTitle" class="text-xl font-semibold pb-2">
-        Task Events
+    <div class="text-lg font-semibold pb-4">
+        Task Events ({{ totalCount ?? 0 }})
     </div>
-    <div class="flex items-center justify-between w-full space-x-2">
 
+    <div class="flex items-center justify-between w-full space-x-2">
         <div class="flex items-center space-x-2">
             <app-search-input
                 (onSearch)="handleSearchTextChange($event)"
@@ -23,6 +23,7 @@
 
         <div class="flex items-center space-x-4">
             <button
+                (click)="handleRefresh()"
                 class="standard-action-button"
             >
                 <fa-icon [icon]="faArrowLeftRotate"></fa-icon>

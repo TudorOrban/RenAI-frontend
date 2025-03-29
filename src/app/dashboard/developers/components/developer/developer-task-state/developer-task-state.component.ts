@@ -21,7 +21,7 @@ export class DeveloperTaskStateComponent implements OnChanges {
     searchedEvents: TaskEvent[] = [];
 
     searchParams: SearchParams = {
-        searchText: "", sortBy: "timestamp", isAscending: false, page: 1, itemsPerPage: 50
+        searchText: "", sortBy: "timestamp", isAscending: false, page: 1, itemsPerPage: 20
     };
 
     constructor(
@@ -36,7 +36,7 @@ export class DeveloperTaskStateComponent implements OnChanges {
         }
     }
 
-    private loadTaskState(): void {
+    loadTaskState(): void {
         if (!this.developer?.id) {
             return;
         }
@@ -55,6 +55,12 @@ export class DeveloperTaskStateComponent implements OnChanges {
     searchEvents(): void {
         this.eventSearcherService.searchEvents(this.state?.taskEvents, this.searchParams);
         this.searchedEvents = this.eventSearcherService.getSearchedEvents();
+    }
+
+    loadMore(): void {
+        if (!this.searchParams.page) return;
+        this.searchParams.page++;
+        this.searchEvents();
     }
 
     TaskEventType = TaskEventType;

@@ -17,8 +17,9 @@ import { SelectorComponent } from "../../../../../../shared/common/components/se
 })
 export class TaskEventsHeaderComponent {
     @Input() searchParams!: SearchParams;
-    @Input() includeTitle?: boolean = false;
+    @Input() totalCount?: number;
     @Output() searchParamsChanged = new EventEmitter<void>();
+    @Output() onRefresh = new EventEmitter<void>();
 
     searchConfig: PageSearchConfiguration = pagesSearchConfiguration.pagesConfig["/dashboard/developers/events"];
 
@@ -37,6 +38,9 @@ export class TaskEventsHeaderComponent {
         this.searchParamsChanged.emit();
     }
 
+    handleRefresh(): void {
+        this.onRefresh.emit();
+    }
 
 
     faArrowLeftRotate = faArrowLeftRotate;

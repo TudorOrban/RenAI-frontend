@@ -47,7 +47,7 @@ export class ProjectSpecificationComponent implements OnChanges {
     confirmEdit(): void {
         this.editorService.confirmEdit(this.stateService.renderType).subscribe({
             next: (data) => {
-                this.toastService.addToast({ title: "Success", details: "Project updated successfully.", type: ToastType.SUCCESS });
+                this.toastService.addToast({ title: "Success", details: "Project Specification updated successfully.", type: ToastType.SUCCESS });
             },
             error: (error) => {
                 this.toastService.addToast({ title: "Error", details: "An error occurred saving the changes. Please try again later.", type: ToastType.ERROR });
