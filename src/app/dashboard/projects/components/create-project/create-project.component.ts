@@ -5,6 +5,8 @@ import { CommonModule } from "@angular/common";
 import { Router } from "@angular/router";
 import { ProjectService } from "../../services/api/project.service";
 import { AuthService } from "../../../../core/user/services/auth.service";
+import { ToastManagerService } from "../../../../shared/common/services/toast-manager.service";
+import { ToastType } from "../../../../shared/types/uiTypes";
 
 @Component({
     selector: "app-create-project",
@@ -22,6 +24,7 @@ export class CreateProjectComponent implements OnInit {
     constructor(
         private readonly projectService: ProjectService,
         private readonly authService: AuthService,
+        private readonly toastService: ToastManagerService,
         private readonly router: Router
     ) {}
 
@@ -43,11 +46,12 @@ export class CreateProjectComponent implements OnInit {
         
         this.projectService.createProject(this.project).subscribe({
             next: (data) => {
-                console.log("Success!");
+                this.toastService.addToast({ title: "Success", details: "Project created successfully.", type: ToastType.SUCCESS });
                 this.router.navigate([`/dashboard/projects/${data?.id}`]);
             },
             error: (error) => {
                 console.error("Failed to create project:", error);
+                this.toastService.addToast({ title: "Error", details: "An error occurred creating project.", type: ToastType.ERROR });
             }
         });
     }

@@ -8,6 +8,8 @@ import { UISpecificationComponent } from "./uispecification/uispecification.comp
 import { JsonEditorComponent } from "./json-editor/json-editor.component";
 import { JobSpecificationEditorService } from '../../../services/ui/job-specification-editor.service';
 import { JobSpecificationStateService } from '../../../services/ui/job-specification-state.service';
+import { ToastManagerService } from '../../../../../shared/common/services/toast-manager.service';
+import { ToastType } from '../../../../../shared/types/uiTypes';
 
 @Component({
     selector: 'app-project-specification',
@@ -20,7 +22,8 @@ export class ProjectSpecificationComponent implements OnChanges {
 
     constructor(
         private readonly stateService: JobSpecificationStateService,
-        readonly editorService: JobSpecificationEditorService
+        readonly editorService: JobSpecificationEditorService,
+        private readonly toastService: ToastManagerService,
     ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -43,9 +46,11 @@ export class ProjectSpecificationComponent implements OnChanges {
 
     confirmEdit(): void {
         this.editorService.confirmEdit(this.stateService.renderType).subscribe({
-            next: () => {},
+            next: (data) => {
+                this.toastService.addToast({ title: "Success", details: "Project updated successfully.", type: ToastType.SUCCESS });
+            },
             error: (error) => {
-                console.log('Error updating Job Specification:', error);
+                this.toastService.addToast({ title: "Error", details: "An error occurred saving the changes. Please try again later.", type: ToastType.ERROR });
             },
         });
     }

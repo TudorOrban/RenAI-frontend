@@ -6,6 +6,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DeveloperStatusComponent } from "../../../../projects/components/project/developers/developer-status/developer-status.component";
 import { faArrowLeftRotate, faPause, faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { ToastManagerService } from '../../../../../shared/common/services/toast-manager.service';
+import { ToastType } from '../../../../../shared/types/uiTypes';
 
 @Component({
     selector: 'app-developers-list',
@@ -18,6 +20,7 @@ export class DevelopersListComponent {
 
     constructor(
         private readonly developerService: RenaiDeveloperService,
+        private readonly toastService: ToastManagerService,
         private readonly router: Router
     ) {}
 
@@ -30,11 +33,12 @@ export class DevelopersListComponent {
 
         this.developerService.pauseDeveloper(developerId).subscribe({
             next: (data) => {
-                console.log("Success");
+                this.toastService.addToast({ title: "Success", details: "Developer paused successfully.", type: ToastType.SUCCESS });
                 this.reloadDevelopers();
             },
             error: (error) => {
                 console.error("Error pausing developer: ", error.message);
+                this.toastService.addToast({ title: "Error", details: "Failed to pause developer.", type: ToastType.ERROR });
             }
         })
     }
@@ -44,11 +48,12 @@ export class DevelopersListComponent {
 
         this.developerService.resumeDeveloper(developerId).subscribe({
             next: (data) => {
-                console.log("Success");
+                this.toastService.addToast({ title: "Success", details: "Developer paused successfully.", type: ToastType.SUCCESS });
                 this.reloadDevelopers();
             },
             error: (error) => {
                 console.error("Error pausing developer: ", error.message);
+                this.toastService.addToast({ title: "Error", details: "Failed to pause developer.", type: ToastType.ERROR });
             }
         })
     }
@@ -58,11 +63,12 @@ export class DevelopersListComponent {
 
         this.developerService.stopDeveloper(developerId).subscribe({
             next: (data) => {
-                console.log("Success");
+                this.toastService.addToast({ title: "Success", details: "Developer paused successfully.", type: ToastType.SUCCESS });
                 this.reloadDevelopers();
             },
             error: (error) => {
                 console.error("Error pausing developer: ", error.message);
+                this.toastService.addToast({ title: "Error", details: "Failed to pause developer.", type: ToastType.ERROR });
             }
         })
     }
