@@ -4,7 +4,7 @@ import { WorkspaceTreeUI } from "../../../../models/UITypes";
 import { WorkspaceNodeUI } from "../../../../models/UITypes";
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCaretDown, faCaretUp, faFile, faFolder, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCaretRight, faCaretUp, faFile, faFolder, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { WorkspaceTreePreprocessorService } from '../../../../services/ui/workspace/workspace-tree-preprocessor.service';
 import { WorkspaceFileManagerService } from '../../../../services/ui/workspace/workspace-file-manager.service';
 
@@ -36,7 +36,7 @@ export class TreeViewerComponent implements OnChanges {
 
     getCaretIcon(node?: WorkspaceNodeUI): IconDefinition {
         
-        return node?.isExpanded ? faCaretUp : faCaretDown;
+        return node?.isExpanded ? faCaretUp : faCaretRight;
     }
 
     toggleExpanded(node?: WorkspaceNodeUI): void {

@@ -3,3 +3,7 @@
         <code [highlight]="file.content || ''" [language]="language ?? 'xml'" lineNumbers></code>
     </pre>
 </div>
+
+<div *ngIf="!file" class="flex items-center justify-center py-40 text-xl font-semibold">
+    Open a file from the Tree Viewer.
+</div>

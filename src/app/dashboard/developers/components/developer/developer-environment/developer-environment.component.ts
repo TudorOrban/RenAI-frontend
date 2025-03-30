@@ -67,6 +67,7 @@ export class DeveloperEnvironmentComponent implements OnChanges, AfterViewInit, 
 
     onMouseDown(event: MouseEvent): void {
         if (this.treeViewer && this.treeViewer.nativeElement) {
+            console.log("DSAAS");
             this.isResizing = true;
             this.startX = event.pageX;
             this.treeWidth = this.treeViewer.nativeElement.offsetWidth;

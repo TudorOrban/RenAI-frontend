@@ -1,4 +1,4 @@
-import { Injectable, signal } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { DeveloperWorkspaceService } from "../../api/developer-workspace.service";
 import { WorkspaceFile } from "../../../models/UITypes";
 import { BehaviorSubject, Observable } from "rxjs";
@@ -22,7 +22,6 @@ export class WorkspaceFileManagerService {
         }
 
         if (this.cachedFiles[filePath]) {
-            console.log("Cached: ", filePath);
             this.currentOpenFileSubject.next(this.cachedFiles[filePath]);
         }
 

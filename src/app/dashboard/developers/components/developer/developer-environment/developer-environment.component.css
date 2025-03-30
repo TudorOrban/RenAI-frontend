@@ -17,6 +17,6 @@
 
 .resizer {
     width: 5px;
-    background-color: #ddd;
+    background-color: rgb(220, 220, 220);
     cursor: col-resize;
 }
