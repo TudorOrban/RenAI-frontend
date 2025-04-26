@@ -3,6 +3,9 @@ import { DeveloperWorkspaceService } from "../../api/developer-workspace.service
 import { WorkspaceFile } from "../../../models/UITypes";
 import { BehaviorSubject, Observable } from "rxjs";
 
+/*
+ * Service responsible for managing open files in the workspace editor (with caching)
+ */
 @Injectable({
     providedIn: "root"
 })
