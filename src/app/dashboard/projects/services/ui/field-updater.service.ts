@@ -2,6 +2,9 @@ import { Injectable } from "@angular/core";
 import { JobSpecificationStateService } from "./job-specification-state.service";
 import { AppType, BackendArchitecture, BackendFramework, BackendService, ComputeType, DeveloperSpecification, FrontendFramework, NodeSpecification, NodeVMSize, ServiceDatabase } from "../../models/Project";
 
+/*
+ * Service responsible for updating the fields in the Job Specification update form
+ */
 @Injectable({
     providedIn: "root"
 })
