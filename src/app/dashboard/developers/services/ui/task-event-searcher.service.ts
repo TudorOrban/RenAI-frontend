@@ -2,6 +2,9 @@ import { Injectable } from "@angular/core";
 import { SearchParams } from "../../../../shared/common/types/searchTypes";
 import { TaskEvent, TaskEventType } from "../../models/RenaiDeveloper";
 
+/*
+ * Service responsible for searching through task events (locally)
+ */
 @Injectable({
     providedIn: "root"
 })
