@@ -31,7 +31,7 @@ export class ProjectComponent {
         { label: "Developers", value: "developers" },
     ];
 
-    selectedTab: UIItem = this.navigationItems[2];
+    selectedTab: UIItem = this.navigationItems[0];
 
     selectTab(tab: UIItem): void {
         this.selectedTab = tab;
