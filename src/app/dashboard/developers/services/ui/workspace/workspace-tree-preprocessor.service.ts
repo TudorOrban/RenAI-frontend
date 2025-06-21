@@ -2,6 +2,9 @@ import { Injectable } from "@angular/core";
 import { WorkspaceTreeUI } from "../../../models/UITypes";
 import { WorkspaceNodeUI } from "../../../models/UITypes";
 
+/*
+ * A util service for preprocessing the workspace tree before rendering (depth-limiting, sorting, constructing paths)
+ */
 @Injectable({
     providedIn: "root"
 })

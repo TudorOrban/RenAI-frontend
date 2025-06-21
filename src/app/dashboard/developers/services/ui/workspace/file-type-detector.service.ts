@@ -1,6 +1,9 @@
 import { Injectable } from "@angular/core";
 import { FileType } from "../../../models/UITypes";
 
+/*
+ * Service responsible for determining the file type based on the extension
+ */
 @Injectable({
     providedIn: "root",
 })

@@ -5,6 +5,9 @@ import { SpecificationRenderType } from "../../models/uiTypes";
 import { ProjectService } from "../api/project.service";
 import { JobSpecificationStateService } from "./job-specification-state.service";
 
+/*
+ * Service responsible for managing the editing of a project's job specification
+ */
 @Injectable({
     providedIn: "root"
 })

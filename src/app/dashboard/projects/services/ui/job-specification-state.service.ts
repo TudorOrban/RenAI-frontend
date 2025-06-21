@@ -3,6 +3,9 @@ import { AutoGenerationState, EditingState, SpecificationManagerState, Specifica
 import { JobSpecification } from "../../models/Project";
 import { BehaviorSubject } from "rxjs";
 
+/*
+ * Service responsible for managing the state of the Job Specification editor
+ */
 @Injectable({
     providedIn: "root"
 })
